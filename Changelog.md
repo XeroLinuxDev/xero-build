@@ -34,7 +34,9 @@ That's it for this month. Just make sure to update the system post-install befor
 
 Also ignore fact that **Fasfetch** in **Guake** doesn't show logo, it simply does not support images. If you know of a fix please do let me know, would be appreciated. 
 
-P.S : If you try updating to Gnome 48 there's currently an issue blocking the update, we are aware of it, it's due to a dependency having moved to the AUR. To fix it do the following exactly as listed. Remove gnome-shell-performance package like so :
+### Issue
+
+If you try updating to Gnome 48 there's currently an issue blocking it, we are aware of it, it's due to a dependency having moved to the AUR. To fix it do the following exactly as listed. Remove gnome-shell-performance package like so :
 
 ```Bash
 sudo pacman -Rdd gnome-shell-performance
