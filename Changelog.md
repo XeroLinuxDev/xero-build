@@ -16,8 +16,6 @@ This month's version includes a few changes and some minor fixes. See list below
 - Fixed some Plasmoids not updating.
 - Removed Deprecated XWaylandVideoBridge.
 
-Please do not report them here or on Discord. That's it for this month. Just make sure to update the system post-install before doing anything else for best experience.
-
 <h1 align="center">Gnome Dev "Spin"</h1>
 
 <h3 align="center">March 2025</h3>
@@ -30,7 +28,7 @@ Please do not report them here or on Discord. That's it for this month. Just mak
 - Stability improvements.
 - Added Guake Drop-Down Terminal (F12).
 
-That's it for this month. Just make sure to update the system post-install before doing anything else for best experience. Next release (June) will be doing away with **Ghostty** replacing it with **Ptyxis** which is more developer friendly.
+That's it for this month. Next release (June) will be doing away with **Ghostty** replacing it with **Ptyxis** which is more developer friendly.
 
 Also ignore fact that **Fasfetch** in **Guake** doesn't show logo, it simply does not support images. If you know of a fix please do let me know, would be appreciated. 
 
@@ -42,4 +40,4 @@ None so far, hopefully...
 
 #### Get support
 
-If you encounter any issues, or have any ideas, and have chosen to donate for ISO + support, please do let me know on **Discord** and I will do my best to fix things. No promises I will add everything, anyway let's discuss. Next ISOs will drop in **June** ;)
+If you encounter any issues, or have any ideas, please do let me know on **Discord** and I will do my best to fix things. No promises I will add everything, anyway let's discuss.  Just make sure to update the system post-install before doing anything else for best experience. Next ISOs will drop in **June** ;)
