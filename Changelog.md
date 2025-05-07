@@ -16,8 +16,7 @@ This month's version includes a few changes and some minor fixes. See list below
 - Fixed some Plasmoids not updating.
 - Removed Deprecated XWaylandVideoBridge.
 
-P.S : Make sure, if the **XeroLinux** rice gets messed up after update, to run the toolkit from the dock, go to option 7, "**System Troubleshooting & Tweaks**" then option s, "Reset KDE/Xero Layout back to Stock" finally select "yes" as seen in the image below, to fix it before you start modifying things.
-
+P.S : Make sure, if the **XeroLinux** rice gets messed up after update, to run the toolkit from the dock, go to option 7, "**System Troubleshooting & Tweaks**" then option s, "**Reset KDE/Xero Layout back to Stock**" finally select "**yes**" as seen in the image below, to fix it before you start modifying things.
 
 <p align="center">
     <img width="600" src="https://i.imgur.com/LApHOJe.png" alt="fix">
