@@ -45,12 +45,6 @@ Once removed update should go smoothly again. It has been addressed for upcoming
 
 <h3 align="center">---------------------------------------------------------------------------</h3>
 
-#### Get new features
-
-If you already are on **XeroLinux**, any version, all you have to do, to get new changes in, is to run option **n. Apply latest XeroLinux specific changes/updates.** under 1st option in the toolkit. That way you do not need to grab new ISO n reinstall to get them. As shown in image below...
-
-<p align="center">
-    <img width="750" src="https://i.imgur.com/Ok6Re2z.png" alt="xlapit">
-</p>
+#### Get support
 
 If you encounter any issues, or have any ideas, and have chosen to donate for ISO + support, please do let me know on **Discord** and I will do my best to fix things. No promises I will add everything, anyway let's discuss. Next ISOs will drop in **June** ;)
