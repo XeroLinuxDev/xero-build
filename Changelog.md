@@ -20,7 +20,7 @@ P.S : Make sure, if the **XeroLinux** rice gets messed up after update, to run t
 
 
 <p align="center">
-    <img width="420" src="https://i.imgur.com/LApHOJe.png" alt="fix">
+    <img width="600" src="https://i.imgur.com/LApHOJe.png" alt="fix">
 </p>
 
 <h1 align="center">Gnome Dev "Spin"</h1>
