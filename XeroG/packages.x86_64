@@ -563,6 +563,7 @@ nautilus-image-converter
 ## GNOME Shell Extensions
 
 extension-manager
+gnome-shell-extensions
 gnome-shell-extension-arc-menu
 gnome-shell-extension-caffeine
 gnome-shell-extension-gsconnect
