@@ -154,6 +154,7 @@ wayland-protocols
 #######################################################
 
 ### Chaotic-AUR
+
 chaotic-keyring
 chaotic-mirrorlist
 
@@ -165,7 +166,6 @@ repoctl
 preload
 libgdata
 xlapit-cli
-#xero-welcome
 calamares-app
 calamares-g-cfg
 desktop-config-gnome
@@ -193,9 +193,7 @@ mkinitcpio-nfs-utils
 ### Tools
 
 mpv
-guake
 hblock
-timeshift
 cryptsetup
 brightnessctl
 power-profiles-daemon
@@ -218,18 +216,12 @@ xorg-xwayland
 
 ### Essentials
 
-kio5
-ki18n5
-solid5
 xmlto
 ckbcomp
-kconfig5
 kpmcore
-qt5-base
 yaml-cpp
+kirigami
 boost-libs
-kcoreaddons5
-kiconthemes5
 polkit-gnome
 gtk-update-icon-cache
 
@@ -246,6 +238,7 @@ intel-ucode
 ### Video
 
 mesa
+wlr-randr
 autorandr
 mesa-utils
 lib32-mesa
@@ -270,15 +263,12 @@ game-devices-udev
 xf86-input-vmmouse
 xf86-input-libinput
 xf86-input-synaptics
-libinput-gestures-qt
 xf86-input-elographics
 
-### Printers & Scanner support
+### Printers
 
 hplip
-print-manager
 printer-support
-scanner-support
 
 ### G-Streamer
 
@@ -294,11 +284,11 @@ gst-plugin-pipewire
 
 libdvdcss
 alsa-utils
+pavucontrol
 wireplumber
 alsa-plugins
 alsa-firmware
 pipewire-jack
-pavucontrol-qt
 pipewire-support
 lib32-pipewire-jack
 
@@ -408,15 +398,14 @@ epiphany
 ### Multimedia
 
 ffmpeg
-ffmpegthumbs
 ffnvcodec-headers
 
 ### PKG Management
 
+paru
 flatpak
 topgrade
-paru-git
-appstream-qt
+appstream
 pacman-contrib
 pacman-bintrans
 
@@ -442,9 +431,9 @@ gvfs-gphoto2
 
 libgsf
 tumbler
+poppler
 freetype2
 libopenraw
-poppler-qt5
 poppler-glib
 ffmpegthumbnailer
 
@@ -507,7 +496,6 @@ gnome-remote-desktop
 gnome-system-monitor
 xdg-terminal-exec-git
 gnome-settings-daemon
-gnome-shell-extensions
 gnome-network-displays
 xdg-desktop-portal-gnome
 
@@ -519,11 +507,14 @@ d-spy
 geary
 gedit
 glade
+mousai
 sysprof
 ptyxis
+commit
+shortwave
 evolution
 endeavour
-accerciser
+impression
 file-roller
 gnome-tweaks
 dconf-editor
@@ -572,7 +563,6 @@ nautilus-image-converter
 ## GNOME Shell Extensions
 
 extension-manager
-gnome-shell-extensions
 gnome-shell-extension-arc-menu
 gnome-shell-extension-caffeine
 gnome-shell-extension-gsconnect
@@ -585,7 +575,7 @@ gnome-shell-extension-weather-oclock
 ### Useful shit
 
 pacseek
-deja-dup
+pika-backup
 rate-mirrors
 libappindicator-gtk3
 

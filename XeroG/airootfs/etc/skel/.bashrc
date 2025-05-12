@@ -34,6 +34,7 @@ eval "$(oh-my-posh init bash --config $HOME/.config/ohmyposh/xero.omp.json)"
 
 # Special Clear Message
 alias clsm='clear && figlet -c -t -f small "Welcome to XeroLinux, ${USER^^}" | lolcat'
+alias xff='clear && fastfetch --config ~/.config/fastfetch/stationxero.jsonc'
 
 # Replace stuff with bat
 alias cat='bat '

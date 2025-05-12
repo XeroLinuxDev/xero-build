@@ -51,7 +51,7 @@ I call this the **Gnome Dev Spin** simply because, unlike the **KDE Flagship**, 
 > While some useful extensions were included, I highly recommend against installing too many if you want to keep your system stable. Also, please avoid using GTK themes, as they might cause overall issues since the Gnome devs do not like it when you do. In the end it's all up to you. You have been warned ;)
 
 <p align="center">
-    <img src="https://i.imgur.com/gWiGd4D.jpeg" alt="logo">
+    <img src="https://i.imgur.com/2LEmLBI.jpeg" alt="logo">
 </p>
 
 ### Included Features

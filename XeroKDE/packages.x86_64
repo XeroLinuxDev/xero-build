@@ -142,6 +142,7 @@ logrotate
 #######################################################
 
 ### Chaotic-AUR
+
 chaotic-keyring
 chaotic-mirrorlist
 
@@ -151,7 +152,6 @@ rustup
 repoctl
 preload
 xlapit-cli
-#xero-welcome
 calamares-app
 calamares-cfg
 desktop-config
@@ -380,9 +380,9 @@ ffnvcodec-headers
 
 ### PKG Management
 
+paru
 flatpak
 topgrade
-paru-git
 appstream-qt
 pacman-contrib
 pacman-bintrans
@@ -410,7 +410,7 @@ libgsf
 tumbler
 freetype2
 libopenraw
-poppler-qt5
+poppler-qt6
 poppler-glib
 ffmpegthumbnailer
 
@@ -449,11 +449,11 @@ gnustep-base
 
 ## Complements
 
+amarok
 pacseek
 parallel
 xsettingsd
 polkit-qt6
-amarok-qt6
 systemdgenie
 gnome-keyring
 
