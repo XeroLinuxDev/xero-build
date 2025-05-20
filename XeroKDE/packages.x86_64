@@ -492,6 +492,7 @@ kwrited
 kgamma
 kscreen
 sddm-kcm
+kwin-x11
 kmenuedit
 bluedevil
 kpipewire
@@ -564,7 +565,6 @@ kdegraphics-thumbnailers
 ark
 kate
 kgpg
-kcalc
 kfind
 sweeper
 konsole
@@ -576,6 +576,7 @@ filelight
 kmousetool
 kcharselect
 markdownpart
+qalculate-qt
 keditbookmarks
 kdebugsettings
 kwalletmanager

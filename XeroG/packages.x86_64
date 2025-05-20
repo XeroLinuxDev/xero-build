@@ -484,7 +484,6 @@ gnome-calendar
 gnome-contacts
 tracker3-miners
 gnome-user-share
-gnome-calculator
 gnome-characters
 gnome-connections
 gnome-font-viewer
@@ -578,6 +577,7 @@ gnome-shell-extension-weather-oclock
 pacseek
 pika-backup
 rate-mirrors
+qalculate-gtk
 libappindicator-gtk3
 
 #######################################################
