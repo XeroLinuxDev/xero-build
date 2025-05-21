@@ -492,7 +492,7 @@ kwrited
 kgamma
 kscreen
 sddm-kcm
-kwin-x11
+#kwin-x11
 kmenuedit
 bluedevil
 kpipewire
