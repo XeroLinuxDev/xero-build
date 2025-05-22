@@ -148,10 +148,12 @@ chaotic-mirrorlist
 
 ### XeroLinux Build
 
+
 rustup
 repoctl
 preload
 xlapit-cli
+upd72020x-fw
 calamares-app
 calamares-cfg
 desktop-config
