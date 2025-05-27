@@ -1,0 +1,20 @@
+[
+    (
+        name: "Application opened",
+        kind: System,
+        path: "/home/xero/.local/share/dev.edfloreshz.CosmicTweaks/snapshots/Application opened.ron",
+        created: "2025-05-27T15:01:26.511187721",
+    ),
+    (
+        name: "Application opened",
+        kind: System,
+        path: "/home/xero/.local/share/dev.edfloreshz.CosmicTweaks/snapshots/Application opened.ron",
+        created: "2025-05-27T13:43:53.432408641",
+    ),
+    (
+        name: "Application opened",
+        kind: System,
+        path: "/home/xero/.local/share/dev.edfloreshz.CosmicTweaks/snapshots/Application opened.ron",
+        created: "2025-05-27T13:32:59.482577930",
+    ),
+]

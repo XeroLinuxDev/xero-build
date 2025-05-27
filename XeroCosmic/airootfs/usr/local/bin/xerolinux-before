@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+echo "#################################"
+echo "Start xerolinux-before"
+echo "#################################"
+
+echo "Populate Core Team keys"
+echo "#################################"
+pacman-key --init
+pacman-key --populate
+
+echo "Populate Chaotic-AUR keys"
+echo "#################################"
+pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key 3056513887B78AEB
+
+echo "Copy grub XeroLayan theme"
+echo "#################################"
+mkdir -p /boot/grub/themes
+cp -Rf /usr/share/grub/themes/XeroG /boot/grub/themes/
+
+echo "Changing into our own linux.preset"
+echo "#################################"
+mv /etc/mkinitcpio.d/xero.preset /etc/mkinitcpio.d/linux.preset
+
+echo "#################################"
+echo "End xerolinux-before"
+echo "#################################"
+rm /usr/local/bin/xerolinux-before
