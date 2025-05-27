@@ -1,7 +1,13 @@
 .DS_Store
 Thumbs.db
 db.json
-*.sh
+kde.sh
+push.sh
+exec.sh
+gnome.sh
+cosmic.sh
+gitinfo.sh
+gitclean.sh
 *.log
 node_modules/
 .deploy*/
