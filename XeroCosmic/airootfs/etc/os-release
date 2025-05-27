@@ -6,5 +6,5 @@ BUILD_ID=rolling
 ANSI_COLOR="38;2;23;147;209"
 HOME_URL="https://xerolinux.xyz/"
 LOGO=XeroG
-IMAGE_ID=XeroG
+IMAGE_ID=XeroLinux Cosmic
 IMAGE_VERSION=2025.06.02

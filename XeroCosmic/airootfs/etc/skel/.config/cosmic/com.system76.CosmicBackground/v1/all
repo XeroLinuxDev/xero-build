@@ -1,6 +1,6 @@
 (
     output: "all",
-    source: Path("/home/xero/Pictures/wallhaven-5ylxz7.jpg"),
+    source: Path("/usr/share/xero-gfx/Xero-Purple.jpg"),
     filter_by_theme: true,
     rotation_frequency: 3600,
     filter_method: Lanczos,
