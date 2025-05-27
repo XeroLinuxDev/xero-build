@@ -6,7 +6,7 @@ echo "#################################"
 
 echo "Permissions of important folders"
 echo "#################################"
-xdg-user-dirs-update
+xdg-user-dirs-update --force
 chmod 750 /etc/sudoers.d
 chmod 750 /etc/polkit-1/rules.d
 chgrp polkitd /etc/polkit-1/rules.d
