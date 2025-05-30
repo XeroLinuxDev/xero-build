@@ -70,7 +70,7 @@ alias df='df -h'
 alias userlist='cut -d: -f1 /etc/passwd'
 
 #Pacman for software managment
-alias search='pacman -F '
+alias search='pacman -Ss '
 alias remove='sudo pacman -Rs '
 alias install='sudo pacman -S'
 alias linstall='sudo pacman -U *.pkg.tar.zst'
