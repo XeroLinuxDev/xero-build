@@ -244,9 +244,8 @@ autorandr
 mesa-utils
 lib32-mesa
 xf86-video-qxl
-xf86-video-vesa
-xf86-video-fbdev
 lib32-mesa-utils
+xf86-video-fbdev
 xf86-video-vmware
 qemu-hw-display-qxl
 
@@ -324,14 +323,8 @@ wireless_tools
 wpa_supplicant
 systemd-resolvconf
 networkmanager-vpnc
-networkmanager-pptp
-networkmanager-l2tp
-network-manager-sstp
 network-manager-applet
 networkmanager-openvpn
-networkmanager-strongswan
-networkmanager-openconnect
-mobile-broadband-provider-info
 
 ### Virtual Machine
 
