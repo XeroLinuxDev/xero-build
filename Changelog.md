@@ -16,6 +16,8 @@ P.S : Make sure, if the **XeroLinux** rice gets messed up after update, to run t
     <img width="600" src="https://i.imgur.com/LApHOJe.png" alt="fix">
 </p>
 
+<h3 align="center">Gnome Dev "Spin"</h3>
+
 #### Chages/Fixes
 
 - Updated to Gnome 48.1.
