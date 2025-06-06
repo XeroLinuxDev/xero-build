@@ -284,6 +284,7 @@ bluez-hid2hci
 iw
 iwd
 avahi
+samba
 netctl
 openldap
 nss-mdns
@@ -328,7 +329,6 @@ ostree
 lolcat
 numlockx
 lm_sensors
-samba-support
 appstream-glib
 lib32-lm_sensors
 
@@ -536,6 +536,7 @@ plasma-browser-integration
 
 krdc
 krfb
+smb4k
 alligator
 kdeconnect
 kio-admin

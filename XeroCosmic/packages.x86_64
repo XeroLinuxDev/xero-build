@@ -305,6 +305,7 @@ bluez-hid2hci
 iw
 iwd
 avahi
+samba
 netctl
 openldap
 nss-mdns
@@ -344,7 +345,6 @@ lolcat
 flatseal
 numlockx
 lm_sensors
-samba-support
 appstream-glib
 
 ### Bat to replace cat

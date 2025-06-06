@@ -307,6 +307,7 @@ bluez-hid2hci
 iw
 iwd
 avahi
+samba
 netctl
 openldap
 nss-mdns
@@ -348,7 +349,6 @@ flatseal
 numlockx
 lm_sensors
 gdm-settings
-samba-support
 appstream-glib
 
 ### Bat to replace cat
@@ -504,6 +504,7 @@ mousai
 sysprof
 ptyxis
 commit
+showtime
 shortwave
 evolution
 endeavour
