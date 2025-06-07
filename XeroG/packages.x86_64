@@ -134,7 +134,6 @@ ntp
 most
 wget
 dialog
-repoctl
 dnsutils
 logrotate
 
@@ -161,8 +160,6 @@ chaotic-mirrorlist
 ### XeroLinux Build
 
 gsound
-rustup
-repoctl
 preload
 libgdata
 xlapit-cli
@@ -599,7 +596,6 @@ btop
 glfw
 htop
 lshw
-cmake
 cblas
 expac
 fuse3
@@ -643,7 +639,6 @@ s3fs-fuse
 playerctl
 asciinema
 oniguruma
-appstream
 ventoy-bin
 cifs-utils
 file-roller

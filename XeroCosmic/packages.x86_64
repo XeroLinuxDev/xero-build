@@ -161,15 +161,13 @@ chaotic-mirrorlist
 ### XeroLinux Build
 
 gsound
-rustup
-repoctl
 preload
 libgdata
 xlapit-cli
 upd72020x-fw
 calamares-app
 calamares-cosmic-cfg
-#desktop-config-cosmic
+cosmic-desktop-config
 evolution-data-server
 
 ### Build Stuff
@@ -377,7 +375,6 @@ gtk-engine-murrine
 
 ### Rice/Config Related
 
-kvantum-theme-libadwaita-git
 tela-circle-icon-theme-purple
 
 ### Browser
@@ -508,7 +505,6 @@ btop
 glfw
 htop
 lshw
-cmake
 cblas
 expac
 fuse3
@@ -552,7 +548,6 @@ s3fs-fuse
 playerctl
 asciinema
 oniguruma
-appstream
 ventoy-bin
 cifs-utils
 file-roller

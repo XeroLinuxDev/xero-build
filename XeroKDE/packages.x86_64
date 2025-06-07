@@ -149,8 +149,6 @@ chaotic-mirrorlist
 ### XeroLinux Build
 
 
-rustup
-repoctl
 preload
 xlapit-cli
 upd72020x-fw
@@ -634,7 +632,6 @@ btop
 glfw
 htop
 lshw
-cmake
 cblas
 expac
 fuse3
@@ -678,7 +675,6 @@ s3fs-fuse
 playerctl
 asciinema
 oniguruma
-appstream
 ventoy-bin
 cifs-utils
 lsb-release
