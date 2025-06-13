@@ -217,7 +217,6 @@ lib32-mesa
 xf86-video-qxl
 xf86-video-fbdev
 lib32-mesa-utils
-xf86-video-vmware
 qemu-hw-display-qxl
 
 ### Input
