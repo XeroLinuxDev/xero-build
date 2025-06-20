@@ -5,6 +5,7 @@ This month's version includes a lot of changes and some minor fixes. See list be
 #### Chages/Fixes
 
 - Updated to KDE 6.4.
+- Removed BTRFS support.
 - Moved Wine to Steam (Toolkit).
 - Set Falkon as the default Browser.
 - Fixed some drive permission issues.
@@ -33,6 +34,7 @@ Rice : Make sure, if the **XeroLinux** rice gets messed up after update, to run 
 #### Chages/Fixes
 
 - Updated to Gnome 48.2.
+- Removed BTRFS support.
 - Replaced Ghostty with Ptyxis.
 - Replaced Deja-Dup with Pika-Backup.
 - Added `open-in-ptyxis` for Nautilus.
