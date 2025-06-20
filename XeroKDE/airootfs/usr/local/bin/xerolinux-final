@@ -42,10 +42,6 @@ sed -i "s/#RebootWatchdogSec=10min/RebootWatchdogSec=30s/g" /etc/systemd/system.
 sed -i "s/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=5s/g" /etc/systemd/system.conf
 sed -i "s/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=10s/g" /etc/systemd/system.conf
 
-echo "Setting KGPg Never to start"
-echo "#################################"
-sed -i '219 i OnlyShowIn=KDE' /etc/xdg/autostart/org.kde.kgpg.desktop
-
 echo "Fixing SDDM.conf User"
 echo "#####################"
 sed -i 's/User=liveuser/User=/g' /etc/sddm.conf.d/kde_settings.conf

@@ -215,18 +215,8 @@ autorandr
 mesa-utils
 lib32-mesa
 xf86-video-qxl
-xf86-video-fbdev
 lib32-mesa-utils
 qemu-hw-display-qxl
-
-### nVidia Support
-
-nvidia-open-dkms
-nvidia-utils
-nvidia-settings
-lib32-nvidia-utils
-opencl-nvidia
-lib32-opencl-nvidia
 
 ### Input
 
