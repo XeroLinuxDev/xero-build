@@ -32,7 +32,7 @@ Rice : Make sure, if the **XeroLinux** rice gets messed up after update, to run 
 
 #### Chages/Fixes
 
-- Updated to Gnome 48.1.
+- Updated to Gnome 48.2.
 - Replaced Ghostty with Ptyxis.
 - Replaced Deja-Dup with Pika-Backup.
 - Added `open-in-ptyxis` for Nautilus.
