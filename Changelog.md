@@ -1,16 +1,28 @@
-<h2 align="center">⚠️ nVidia & Hybrid Users ⚠️<br /><br />
-Update database via <code>sudo pacman -Syy</code><br /><br />
-Install Drivers, THEN update System before rebooting.</h2>
-
 <h3 align="center">Flagship KDE Edition</h3>
 
-This month's version will include Plasma 6.4 among many other changes...
+This month's version includes a lot of changes and some minor fixes. See list below.
 
 #### Chages/Fixes
 
-Coming soon !
+- Updated to KDE 6.4.
+- Moved Wine to Steam (Toolkit).
+- Set Falkon as the default Browser.
+- Fixed some drive permission issues.
+- Switched to Wayland for Live/Auto-Login.
 
-P.S : Make sure, if the **XeroLinux** rice gets messed up after update, to run the toolkit from the dock, go to option 7, "**System Troubleshooting & Tweaks**" then option s, "**Reset KDE/Xero Layout back to Stock**" finally select "**yes**" as seen in the image below, to fix it before you start modifying things.
+**X11 Notice :** If you are already on **XeroKDE** and require **X11**, manual intervention required. Please install the following packages otherwise you will no longer be able to login to **X11 Session**. That is a major shift by the **Plasma Team**, they split X11 & wayland packages.
+
+```Bash
+sudo pacman -Syy kwin-x11 plasma-x11-session
+```
+
+#### Additions (Disabled by default)
+
+- Krohnkite tiling. [**Info**](https://github.com/anametologin/krohnkite)
+- Smart Video Wallpaper. [**Info**](https://github.com/luisbocanegra/plasma-smart-video-wallpaper-reborn)
+- Plasma Panel Colorizer. [**Info**](https://github.com/luisbocanegra/plasma-panel-colorizer)
+
+Rice : Make sure, if the **XeroLinux** rice gets messed up after update, to run the toolkit from the dock, go to option 7, "**System Troubleshooting & Tweaks**" then option s, "**Reset KDE/Xero Layout back to Stock**" finally select "**yes**" as seen in the image below, to fix it before you start modifying things.
 
 <p align="center">
     <img width="600" src="https://i.imgur.com/LApHOJe.png" alt="fix">
