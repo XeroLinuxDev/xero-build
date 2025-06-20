@@ -215,7 +215,6 @@ autorandr
 mesa-utils
 lib32-mesa
 xf86-video-qxl
-xf86-video-vesa
 xf86-video-fbdev
 lib32-mesa-utils
 qemu-hw-display-qxl
@@ -492,7 +491,7 @@ kwrited
 kgamma
 kscreen
 sddm-kcm
-kwin-x11
+#kwin-x11
 kmenuedit
 bluedevil
 kpipewire
@@ -524,7 +523,7 @@ kdeplasma-addons
 ocean-sound-theme
 qqc2-breeze-style
 kactivitymanagerd
-plasma-x11-session
+#plasma-x11-session
 plasma-integration
 plasma-thunderbolt
 plasma5-integration
