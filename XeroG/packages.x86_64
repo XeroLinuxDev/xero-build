@@ -236,13 +236,13 @@ intel-ucode
 ### Video
 
 mesa
-wlr-randr
 autorandr
 mesa-utils
 lib32-mesa
 xf86-video-qxl
-lib32-mesa-utils
+xf86-video-vesa
 xf86-video-fbdev
+lib32-mesa-utils
 qemu-hw-display-qxl
 
 ### Input
