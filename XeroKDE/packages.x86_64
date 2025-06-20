@@ -465,7 +465,7 @@ gnome-keyring
 ###                   The Groups                    ###
 #######################################################
 
-### https://archlinux.org/groups/x86_64/kf5/
+### https://archlinux.org/groups/x86_64/kf6/
 ### https://archlinux.org/groups/x86_64/qt6/
 ### https://archlinux.org/groups/x86_64/kde-system/
 
@@ -485,12 +485,13 @@ krdp
 milou
 breeze
 oxygen
+aurorae
 drkonqi
 kwrited
 kgamma
 kscreen
 sddm-kcm
-#kwin-x11
+kwin-x11
 kmenuedit
 bluedevil
 kpipewire
@@ -511,6 +512,7 @@ ksystemstats
 kde-cli-tools
 oxygen-sounds
 kscreenlocker
+kglobalacceld
 systemsettings
 kde-gtk-config
 layer-shell-qt
@@ -521,6 +523,7 @@ kdeplasma-addons
 ocean-sound-theme
 qqc2-breeze-style
 kactivitymanagerd
+plasma-x11-session
 plasma-integration
 plasma-thunderbolt
 plasma5-integration
@@ -598,12 +601,12 @@ akregator
 
 ### KDE Wayland
 
+waypipe
 dwayland
 egl-wayland
 qt6-wayland
 lib32-wayland
 wayland-protocols
-#xwaylandvideobridge
 kwayland-integration
 plasma-wayland-protocols
 

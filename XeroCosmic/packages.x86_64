@@ -140,6 +140,7 @@ logrotate
 
 ### Wayland Stuff
 
+waypipe
 wayland
 kwayland5
 qt6-wayland
