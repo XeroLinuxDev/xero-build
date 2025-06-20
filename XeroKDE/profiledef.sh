@@ -33,4 +33,7 @@ file_permissions=(
   ["/usr/local/bin/services"]="0:0:755"
   ["/usr/local/bin/ucode"]="0:0:755"
   ["/usr/local/bin/fsprogschk"]="0:0:755"
+  ["/usr/local/bin/graphical-target"]="0:0:755"
+  ["/usr/local/bin/nvidia-settings"]="0:0:755"
+  ["/usr/local/bin/remove-nvidia"]="0:0:755"
   )

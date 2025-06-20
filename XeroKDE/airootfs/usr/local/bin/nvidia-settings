@@ -1,0 +1,300 @@
+#!/bin/bash
+
+##############################################################
+##############################################################
+#   NO USE OF SUDO HERE
+##############################################################
+##############################################################
+
+# echo
+# echo "Initiating system checks for Wayland session desktops."
+# echo "Detecting presence of Wayland sessions: Hyprland, Sway, Wayfire, Plasma and Gnome."
+# echo "Proceeding only if any of the above sessions are installed."
+
+# echo "Verifying installation of nvidia-dkms package."
+# echo "If nvidia-dkms is installed, adjusting boot parameters for Nvidia DRM kernel mode setting."
+# echo "This includes modifying grub, systemd-boot, and rEFInd configurations to ensure smooth operation with Nvidia GPUs."
+
+# echo "Adding 'nvidia-drm.modeset=1' to the necessary boot configurations."
+# echo "This parameter is essential for enabling the Nvidia DRM kernel mode setting, which can improve display performance and stability."
+
+# echo "If nvidia-dkms is not installed, the script will remove 'nvidia-drm.modeset=1' from configurations."
+# echo "This ensures that systems without Nvidia proprietary drivers are not affected by unnecessary parameters."
+# echo
+
+echo
+echo "#############################################################"
+echo "Start xerolinux-nvidia-settings only for wayland desktops"
+echo "#############################################################"
+echo
+
+if 	[ -f /usr/share/wayland-sessions/plasma.desktop ] || \
+	[ -f /usr/share/wayland-sessions/gnome-wayland.desktop ]; then
+
+	# Just checking if there is an nvidia driver installed
+	if pacman -Qq | grep -q "^nvidia"; then
+
+		echo "################################################################"
+		echo "#########  Checking ..."$package" is installed... we can continue"
+		echo "################################################################"
+
+		echo
+		echo "################################################################"
+		echo "################### Adding nvidia modules for Wayland and Nvidia"
+		echo "################### MODULES= nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+		echo "################### in /etc/mkinitcpio.conf"
+		echo "################################################################"
+		echo
+
+		FIND='MODULES=""'
+		REPLACE='MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"'
+		sed -i "s/$FIND/$REPLACE/g" /etc/mkinitcpio.conf
+
+		FIND='MODULES=()'
+		REPLACE='MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)'
+		sed -i "s/$FIND/$REPLACE/g" /etc/mkinitcpio.conf
+
+		# GRUB
+		if [ -f /etc/default/grub ];then
+
+			if ! grep -q "nvidia-drm.modeset=1" /etc/default/grub; then
+
+				echo
+				echo "################################################################"
+				echo "################### Adding option nvidia-drm.modeset=1"
+				echo "################### to /etc/default/grub"
+				echo "################################################################"
+				echo
+				
+		        # Check and modify the GRUB_CMDLINE_LINUX_DEFAULT line depending on the quoting style
+		        if grep -q "^GRUB_CMDLINE_LINUX_DEFAULT=\".*\"" /etc/default/grub; then
+		            # Handles double quotes
+		            sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/\"$/ nvidia-drm.modeset=1\"/" /etc/default/grub
+		        elif grep -q "^GRUB_CMDLINE_LINUX_DEFAULT='.*'" /etc/default/grub; then
+		            # Handles single quotes
+		            sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/'$/ nvidia-drm.modeset=1'/" /etc/default/grub
+		        fi
+
+			fi
+
+			echo
+			echo "################################################################"
+			echo "################### Start mkinitcpio -P"
+			echo "################################################################"
+			echo
+
+			mkinitcpio -P
+
+			echo
+			echo "################################################################"
+			echo "################### Updating Grub"
+			echo "################################################################"
+			echo
+			grub-install --target=x86_64-efi --efi-directory=/boot/efi --force --recheck
+			grub-mkconfig -o /boot/grub/grub.cfg
+
+
+			echo "Writing grub to /bootloader"
+			echo "grub" | dd of="/bootloader"
+
+		fi
+
+
+		# SYSTEMD-BOOT
+		if pacman -Qi arcolinux-bootloader-systemd-boot-git &> /dev/null; then
+
+			echo
+			echo "################################################################"
+			echo "################### Adding option nvidia-drm.modeset=1"
+			echo "################### to SYSTEMD-BOOT entries"
+			echo "################################################################"
+			echo
+
+			ENTRY_DIR="/boot/efi/loader/entries/"
+			PARAM="nvidia-drm.modeset=1"
+
+			for entry in "$ENTRY_DIR"*.conf; do
+		  	if grep -q "nvidia-drm.modeset=1" "$entry"; then
+		    	echo "Parameter already present in $(basename "$entry")"
+		  	else
+		    	sed -i "/^options / s/options /&$PARAM /" "$entry"
+		    	echo "Added parameter to $(basename "$entry")"
+		  	fi
+			done
+
+			echo
+			echo "################################################################"
+			echo "################### Start mkinitcpio -P"
+			echo "################################################################"
+			echo
+
+			mkinitcpio -P
+
+			sudo bootctl install
+
+			echo "Writing systemd-boot to /bootloader"
+			echo "systemd-boot" | dd of="/bootloader"
+		fi
+
+		# REFIND
+		if [ -f /boot/refind_linux.conf ]; then
+
+			echo
+			echo "################################################################"
+			echo "################### Adding option nvidia-drm.modeset=1"
+			echo "################### to /boot/refind_linux.conf"
+			echo "################################################################"
+			echo
+
+			CONF_FILE="/boot/refind_linux.conf"
+			PARAM="nvidia-drm.modeset=1"
+
+			# Function to add the parameter to a line
+			add_param() {
+			    echo "$1" | sed "s/\"$/ $PARAM\"/"
+			}
+
+			# Check if the configuration file exists
+			if [ ! -f "$CONF_FILE" ]; then
+			    echo "Configuration file not found: $CONF_FILE"
+			fi
+
+			# Check if parameter is already set
+			if grep -q "$PARAM" "$CONF_FILE"; then
+			    echo "Parameter '$PARAM' is already present in $CONF_FILE."
+			fi
+
+			# Read the file and append the parameter
+			while IFS= read -r line; do
+			    # Append the parameter if the line ends with "
+			    if [[ "$line" =~ \"$ ]]; then
+			        line=$(add_param "$line")
+			    fi
+			    echo "$line"
+			done < "$CONF_FILE" > "${CONF_FILE}.tmp"
+
+			# Replace the original file with the modified one
+			mv "${CONF_FILE}.tmp" "$CONF_FILE"
+			echo "Parameter '$PARAM' has been added to $CONF_FILE."
+
+			echo
+			echo "################################################################"
+			echo "################### Start mkinitcpio -P"
+			echo "################################################################"
+			echo
+
+			mkinitcpio -P
+
+			sudo refind-install
+
+			echo "Writing refind to /bootloader"
+			echo "refind" | dd of="/bootloader"
+		fi
+	else
+
+		# REMOVE
+
+		# GRUB
+        if [ -f /etc/default/grub ]; then
+
+        	echo
+			echo "################################################################"
+			echo "################### Removing option nvidia-drm.modeset=1"
+			echo "################### from /etc/default/grub"
+			echo "################################################################"
+			echo
+
+            if grep -q "nvidia-drm.modeset=1" /etc/default/grub; then
+                sed -i "s/ nvidia-drm.modeset=1//" /etc/default/grub
+                echo "Removed 'nvidia-drm.modeset=1' from GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub"
+                grub-install --target=x86_64-efi --efi-directory=/boot/efi --force --recheck
+                grub-mkconfig -o /boot/grub/grub.cfg
+            else
+                echo "'nvidia-drm.modeset=1' is not present in /etc/default/grub, no need to remove"
+            fi
+        	echo "Writing grub to /bootloader"
+			echo "grub" | dd of="/bootloader"
+        fi
+
+        # SYSTEMD-BOOT
+        if [ -d /boot/efi/loader/entries/ ]; then
+
+        	echo
+			echo "################################################################"
+			echo "################### Removing option nvidia-drm.modeset=1"
+			echo "################### from /boot/efi/loader/entries"
+			echo "################################################################"
+			echo
+
+            ENTRY_DIR="/boot/efi/loader/entries/"
+            PARAM="nvidia-drm.modeset=1"
+
+            for entry in "$ENTRY_DIR"*.conf; do
+                if grep -q "$PARAM" "$entry"; then
+                    sed -i "s/ $PARAM//" "$entry"
+                    echo "Removed parameter from $(basename "$entry")"
+                else
+                    echo "'$PARAM' is not present in $(basename "$entry"), no need to remove"
+                fi
+            done
+        	echo "Writing systemd-boot to /bootloader"
+			echo "systemd-boot" | dd of="/bootloader"
+        fi
+
+        # REFIND
+        if [ -f /boot/refind_linux.conf ]; then
+
+        	echo
+			echo "################################################################"
+			echo "################### Removing option nvidia-drm.modeset=1"
+			echo "################### from /boot/refind_linux.conf"
+			echo "################################################################"
+			echo
+
+	        CONF_FILE="/boot/refind_linux.conf"
+
+	        # Function to remove the parameter from a line
+	        remove_param() {
+	            echo "$1" | sed "s/ $PARAM//"
+	        }
+
+	        PARAM="nvidia-drm.modeset=1"
+
+	        if [ -f "$CONF_FILE" ]; then
+	            if grep -q "$PARAM" "$CONF_FILE"; then
+	                while IFS= read -r line; do
+	                    if [[ "$line" =~ \"$ ]]; then
+	                        line=$(remove_param "$line")
+	                    fi
+	                    echo "$line"
+	                done < "$CONF_FILE" > "${CONF_FILE}.tmp"
+
+	                # Replace the original file with the modified one
+	                mv "${CONF_FILE}.tmp" "$CONF_FILE"
+	                echo "Parameter '$PARAM' has been removed from $CONF_FILE."
+	            else
+	                echo "Parameter '$PARAM' is not present in $CONF_FILE, no need to remove."
+	            fi
+	        else
+	            echo "Configuration file not found: $CONF_FILE, nothing to remove."
+	        fi
+
+	        echo "Writing refind to /bootloader"
+			echo "refind" | dd of="/bootloader"
+	    fi
+
+	    echo
+		echo "################################################################"
+		echo "################### Start mkinitcpio -P"
+		echo "################################################################"
+		echo
+
+		mkinitcpio -P
+	fi
+fi
+
+echo
+echo "#################################"
+echo "End xerolinux-nvidia-settings"
+echo "#################################"
+echo

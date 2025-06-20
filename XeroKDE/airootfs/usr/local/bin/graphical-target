@@ -1,0 +1,60 @@
+#!/bin/bash
+# driver=free or driver=nonfree - grub and efi
+
+kernel_cmdline(){
+	for param in $(cat /proc/cmdline); do
+		case "${param}" in
+			$1=*) echo "${param##*=}"; return 0 ;;
+			$1) return 0 ;;
+			*) continue ;;
+		esac
+	done
+	[ -n "${2}" ] && echo "${2}"
+	return 1
+}
+
+get_driver(){
+	echo $(kernel_cmdline driver)
+}
+
+while [ -e "/var/lib/pacman/db.lck" ];
+do
+    echo 'Pacman is not ready yet. Will try again in 10 seconds.'
+    seconds=$(($seconds + 5))
+    sleep 5
+    if [[ "$seconds" == "30" ]]; then
+        echo 'Warning: removing pacman db.lck!'
+        rm /var/lib/pacman/db.lck
+    fi
+done
+
+selection=$(get_driver)
+
+echo
+echo "#################################"
+echo "Start xerolinux-graphical-target"
+echo "#################################"
+echo
+echo "#################################"
+echo "Selection was "$selection
+echo "#################################"
+
+##############################################################################################
+
+# free = remove nvidia-dkms keep nouveau
+if [[ $selection == "free" ]]; then
+	echo
+	echo "#################################"
+	echo "Calamares file for no Nvidia"
+	echo "#################################"
+	echo
+	cp /etc/calamares/settings-advanced-no-nivida.conf /etc/calamares/settings-advanced.conf
+fi
+
+##############################################################################################
+
+echo
+echo "#################################"
+echo "End xerolinux-graphical-target"
+echo "#################################"
+echo
