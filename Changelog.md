@@ -11,11 +11,15 @@ This month's version includes a lot of changes and some minor fixes. See list be
 - Fixed some drive permission issues.
 - Switched to Wayland for Live/Auto-Login.
 
-**X11 Notice :** If you are already on **XeroKDE** and require **X11**, manual intervention required. Please install the following packages otherwise you will no longer be able to login to **X11 Session**. That is a major shift by the **Plasma Team**, they split X11 & wayland packages.
+**X11 Notice :** 
+
+We have totally moved to **Wayland**, meaning no more **X11 Session** to boot into. So if you still rely on **X11**, please install the following packages to be able to login to **X11 Session**. That is a major shift by the Plasma Team, they split **X11** & **Wayland** packages.
 
 ```Bash
 sudo pacman -Syy kwin-x11 plasma-x11-session
 ```
+
+The **X11 Session** will also disappear from login after update in case you were already on **XeroLinux**. To fix that install the above packages, and it should show up again.
 
 #### Additions (Disabled by default)
 
