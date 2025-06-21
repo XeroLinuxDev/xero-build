@@ -50,7 +50,9 @@ That's it for this month. Just make sure to update the system post-install befor
 
 ### issues
 
-None so far, hopefully...
+**Issue 1 :** On the **KDE Flagship** there's a regression with *kwin_wayland* causing CPU to be pegged at near 100% during install for some VM & **nVidia** users. Please be patient with it, try to get it installed, once on your desktop make sure to update, then install GPU drivers n reboot. Issue should be gone. Nothing we can do except wait until issue is resolved. Sorry about that.
+
+**Issue 2 :** Installing **XeroLinux** in a Virtual Machine sometimes might cause the VM losing connection to HDD resulting in an unbootable system. No idea where that issue comes from to be able to fix it. Therefore, if you encounter this, please wait for us to announce an eevntual fix. Again, we appologize for any inconvenience...
 
 <h3 align="center">---------------------------------------------------------------------------</h3>
 
