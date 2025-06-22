@@ -2,6 +2,7 @@
 Thumbs.db
 db.json
 kde.sh
+kdenv.sh
 push.sh
 exec.sh
 gnome.sh
