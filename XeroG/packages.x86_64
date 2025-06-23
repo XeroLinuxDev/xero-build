@@ -115,10 +115,9 @@ xl2tpd
 linux
 linux-atm
 linux-headers
-linux-firmware
-linux-firmware-qcom
-linux-firmware-whence
-linux-firmware-marvell
+linux-firmware-nvidia
+linux-firmware-radeon
+linux-firmware-amdgpu
 
 ### Grub Stuff
 
@@ -182,9 +181,9 @@ gtk-update-icon-cache
 ### mkinitcpio stuff
 
 mkinitcpio
+mkinitcpio-fw
 mkinitcpio-utils
 mkinitcpio-archiso
-mkinitcpio-firmware
 mkinitcpio-openswap
 mkinitcpio-nfs-utils
 
