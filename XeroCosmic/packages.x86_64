@@ -477,6 +477,9 @@ cosmic-applets-git
 cosmic-applet-arch
 cosmic-ext-tweaks-git
 cosmic-ext-forecast-git
+cosmic-ext-applet-sysinfo-git
+cosmic-ext-applet-caffeine-git
+cosmic-ext-applet-privacy-indicator
 cosmic-ext-applet-external-monitor-brightness-git
 
 #######################################################

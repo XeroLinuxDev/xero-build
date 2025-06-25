@@ -333,6 +333,7 @@ virtualbox-guest-utils
 ### Applications
 
 jq
+cava
 figlet
 ostree
 lolcat
