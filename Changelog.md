@@ -48,11 +48,9 @@ Rice : Make sure, if the **XeroLinux** rice gets messed up after update, to run 
 
 That's it for this month. Just make sure to update the system post-install before doing anything else for best experience.
 
-### issues
+### issue(s)
 
-**Issue 1 :** On the **KDE Flagship** there's a regression with *kwin_wayland* causing CPU to be pegged at near 100% during install for some **nVidia** users. Please be patient with it, try to get it installed by booting using the **Safe-Mode** option, once on your desktop make sure to update, then install GPU drivers n reboot. Issue should be gone. Nothing we can do except wait until issue is resolved. Sorry about that.
-
-**Issue 2 :** Installing **XeroLinux** in a Virtual Machine sometimes might cause the VM to lose connection to the Virtual HDD resulting in an unbootable system. No idea where that issue comes from to be able to fix it. Therefore, if you encounter this, please wait for us to announce an evntual fix. Again, we appologize for any inconvenience...
+Installing **XeroLinux** in a Virtual Machine sometimes might cause the VM to lose connection to the Virtual HDD resulting in an unbootable system. No idea where that issue comes from to be able to fix it. Therefore, if you encounter this, please wait for us to announce an evntual fix. Again, we appologize for any inconvenience...
 
 <h3 align="center">---------------------------------------------------------------------------</h3>
 
