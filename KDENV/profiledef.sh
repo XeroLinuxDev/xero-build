@@ -35,4 +35,5 @@ file_permissions=(
   ["/usr/local/bin/ucode"]="0:0:755"
   ["/usr/local/bin/fsprogschk"]="0:0:755"
   ["/usr/local/bin/nvidia-modules"]="0:0:755"
+  ["/usr/local/bin/gpdetect"]="0:0:755"
   )

@@ -1,122 +1,134 @@
 {
-    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-    "logo": {
-        "source": "~/.config/fastfetch/xero.png",
-        "type": "chafa",
-        "height": 15,
-        "width": 30,
-        "padding": {
-            "top": 5,
-            "left": 3
-        }
-    },
-    "modules": [
-        "break",
-        {
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "general": {
+    "multithreading": true
+  },
+  "logo": null,
+  "display": {
+    "separator": "        ",
+  "color":   {
+     "output": "white"
+     }
+  },
+  "modules": [
+    "break",
+    {
+            "type": "title",
+           "color":{
+            "user": "magenta",
+              "at": "green",
+            "host": "yellow"
+                   },
+            "format": "\u001b[97m┌────────────────────────────────────────┤ Eat 󰗲, Sleep , XeroLinux  ├────────────────────────────────────────┐"
+
+        },
+    "break",
+    {
             "type": "custom",
-            "format": "\u001b[90m┌──────────────────────Hardware──────────────────────┐"
+            "format": "                            \u001b[33m   I use Arch BTW - Random Arch User to the universe   ",
         },
-        {
-            "type": "host",
-            "key": " PC",
-            "keyColor": "green"
+    "break",
+    {       "type": "custom",
+            "format": "\u001b[33m╭─  󰦥 󰦥 󰦥 󰦥  SysBase 󰦥 󰦥 󰦥 ",
         },
-        {
-            "type": "cpu",
-            "key": "│ ├",
-            "showPeCoreCount": true,
-            "keyColor": "green"
-        },
-        {
-            "type": "gpu",
-            "key": "│ ├󰍛",
-            "keyColor": "green"
-        },
-        {
-            "type": "memory",
-            "key": "│ ├󰍛",
-            "keyColor": "green"
-        },
-        {
-            "type": "custom",
-            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
-        },
-        "break",
-        {
-            "type": "custom",
-            "format": "\u001b[90m┌──────────────────────Software──────────────────────┐"
-        },
-        {
-            "type": "os",
-            "key": " OS",
-            "keyColor": "yellow"
-        },
-        {
+
+    {
             "type": "kernel",
-            "key": "│ ├",
-            "keyColor": "yellow"
-        },
-        {
-            "type": "packages",
-            "key": "│ ├󰏖",
-            "keyColor": "yellow"
-        },
-        {
-            "type": "shell",
-            "key": "└ └",
-            "keyColor": "yellow"
-        },
-        "break",
-        {
-            "type": "de",
-            "key": " DE",
-            "keyColor": "blue"
-        },
-        {
-            "type": "lm",
-            "key": "│ ├",
-            "keyColor": "blue"
-        },
-        {
-            "type": "wm",
-            "key": "│ ├",
-            "keyColor": "blue"
-        },
-        {
-            "type": "wmtheme",
-            "key": "│ ├󰉼",
-            "keyColor": "blue"
-        },
-        {
-            "type": "gpu",
-            "key": "└ └󰍛",
-            "format": "{3}",
-            "keyColor": "blue"
-        },
-        {
-            "type": "custom",
-            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
-        },
-        "break",
-        {
-            "type": "custom",
-            "format": "\u001b[90m┌────────────────────Uptime / Age────────────────────┐"
-        },
-        {
-            "type": "command",
-            "key": "  OS Age ",
-            "keyColor": "magenta",
-            "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
-        },
-        {
-            "type": "uptime",
-            "key": "  Uptime ",
+            "key": "├ 01.               Kernel   ",
             "keyColor": "magenta"
         },
-        {
-            "type": "custom",
-            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+    {
+            "type": "packages",
+            "key": "├ 02.             Packages   ",
+            "keyColor": "magenta"
         },
-        "break",
-    ]
+    {
+            "type": "shell",
+            "key": "├ 03.                Shell   ",
+            "keyColor": "magenta"
+        },
+    {
+            "type": "terminal",
+            "key": "├ 04.             Terminal   ",
+            "keyColor": "magenta"
+        },
+    {
+            "type": "command",
+            "key": "├ 05                OS Age   󱑋",
+            "keyColor": "magenta",
+            "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
+        },
+    {
+            "type": "uptime",
+            "key": "└ 06.               Uptime   󰚭",
+            "keyColor": "magenta"
+        },
+    "break",
+    {       "type": "custom",
+            "format": "\u001b[33m╭─  󰦥 󰦥 󰦥 󰦥  Theming 󰦥 󰦥 󰦥 ",
+        },
+
+    {
+            "type": "de",
+            "key": "├ 07.   Desktop Enviroment   ",
+            "keyColor": "green"
+        },
+    {
+            "type": "theme",
+            "key": "├ 08.                Theme   ",
+            "keyColor": "green"
+        },
+    {
+            "type": "icons",
+            "key": "├ 09.                Icons   ",
+            "keyColor": "green"
+        },
+    {
+            "type": "lm",
+            "key": "├ 10.      Display Manager   ",
+            "keyColor": "green"
+        },
+    {
+            "type": "wmtheme",
+            "key": "└ 11.             WM Theme  ",
+            "keyColor": "green"
+        },
+    "break",
+    {       "type": "custom",
+            "format": "\u001b[33m╭─  󰦥 󰦥 󰦥 󰦥  Specs 󰦥 󰦥 󰦥 󰦥 ",
+        },
+
+    {
+            "type": "host",
+            "key": "├ 12.                 Mobo   ",
+            "keyColor": "cyan",
+        },
+    {
+            "type": "cpu",
+            "key": "├ 13.                  CPU   ",
+            "format": "{4} x {1}",
+            "keyColor": "cyan"
+        },
+    {
+            "type": "memory",
+            "key": "├ 14.               Memory   ",
+            "keyColor": "cyan"
+        },
+    {
+            "type": "gpu",
+            "key": "└ 15.           GPU/Driver   󰡁",
+            "keyColor": "cyan",
+            "format": "{2}, {3}"
+        },
+
+
+    "break",
+
+    {
+            "type": "custom",
+            "format": "\u001b[97m└─────────────────────────────────────┤ -    WwW.XeroLinux.xYz    - ├─────────────────────────────────────────┘"
+        },
+    "break",
+
+  ]
 }

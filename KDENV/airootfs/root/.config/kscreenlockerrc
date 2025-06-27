@@ -6,5 +6,5 @@ Autolock=false
 LockOnResume=false
 
 [Greeter][Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/Xero-Plasma21.jpg
-PreviewImage=/usr/share/wallpapers/Xero-Plasma21.jpg
+Image=/usr/share/pixmaps/XeroOrchis.png
+PreviewImage=/usr/share/pixmaps/XeroOrchis.png

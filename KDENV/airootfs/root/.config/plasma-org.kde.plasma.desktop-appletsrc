@@ -20,11 +20,11 @@ DialogHeight=600
 DialogWidth=800
 
 [Containments][119][General]
-positions={"1920x1080":[]\,"0x0":[]}
+positions={"1920x1080":[]\\,"0x0":[]}
 sortMode=-1
 
 [Containments][119][Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/Xero-Plasma57.png
+Image=/usr/share/pixmaps/blueplasma.png
 SlidePaths=/usr/share/wallpapers
 
 [Containments][120]
@@ -53,7 +53,7 @@ ToolBoxButtonX=464
 Color=0,0,0
 
 [Containments][120][Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/Xero-Plasma57.png
+Image=/usr/share/pixmaps/blueplasma.png
 SlidePaths=/usr/share/wallpapers
 
 [Containments][121]
@@ -75,7 +75,7 @@ DialogWidth=800
 PreloadWeight=42
 
 [Containments][121][Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/Xero-Plasma57.png
+Image=/usr/share/pixmaps/blueplasma.png
 SlidePaths=/usr/share/wallpapers
 
 [Containments][126]
@@ -109,8 +109,8 @@ plugin=org.kde.plasma.kicker
 
 [Containments][126][Applets][158][Configuration]
 PreloadWeight=100
-popupHeight=378
-popupWidth=300
+popupHeight=346
+popupWidth=561
 
 [Containments][126][Applets][158][Configuration][ConfigDialog]
 DialogHeight=540
@@ -145,8 +145,8 @@ customDateFormat=ddd d MMM yy |
 dateDisplayFormat=BesideTime
 dateFormat=longDate
 displayTimezoneFormat=FullText
-fontFamily=JetBrains Mono
-fontSize=8
+fontFamily=Hack Nerd Font
+fontSize=12
 fontStyleName=Regular
 fontWeight=400
 
@@ -199,15 +199,6 @@ PreloadWeight=75
 popupHeight=340
 popupWidth=600
 
-[Containments][126][Applets][221][Configuration][Appearance]
-autoFontAndSize=false
-boldText=true
-fontFamily=JetBrains Mono ExtraBold
-fontSize=8
-fontStyleName=Italic
-fontWeight=800
-italicText=true
-
 [Containments][126][Applets][221][Configuration][ConfigDialog]
 DialogHeight=540
 DialogWidth=720
@@ -215,7 +206,6 @@ DialogWidth=720
 [Containments][126][Applets][221][Configuration][Station]
 latitude=33.863663
 longitude=35.597227
-savedStations=IMATND12
 stationID=IMATND12
 stationName=Matn District
 
@@ -446,7 +436,7 @@ wrapper=/usr/bin/paru
 [Containments][132][Applets][223][Configuration][Miscellaneous]
 configMsg=false
 rulesMsg=false
-timestamp=1740565332597
+timestamp=1744374393916
 version=v2.9.2
 
 [Containments][132][Applets][223][Configuration][Upgrade]
@@ -462,13 +452,17 @@ wrapper=paru
 
 [Containments][132][Applets][228]
 immutability=1
-plugin=org.kde.plasma.networkmanagement
+plugin=Plasma.Control.Hub
 
 [Containments][132][Applets][228][Configuration]
 PreloadWeight=55
 
 [Containments][132][Applets][233][Configuration]
 PreloadWeight=42
+
+[Containments][132][Applets][234]
+immutability=1
+plugin=org.kde.plasma.networkmanagement
 
 [Containments][132][Applets][234][Configuration]
 PreloadWeight=42
@@ -551,8 +545,8 @@ plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
 
 [Containments][87][ConfigDialog]
-DialogHeight=540
-DialogWidth=720
+DialogHeight=1046
+DialogWidth=1920
 
 [Containments][87][General]
 ToolBoxButtonState=top
@@ -561,8 +555,8 @@ ToolBoxButtonY=56
 positions={"1920x1080":[]}
 
 [Containments][87][Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/Xero-Plasma23.jpg
-PreviewImage=/usr/share/wallpapers/Xero-Plasma23.jpg
+Image=/usr/share/pixmaps/blueplasma.png
+PreviewImage=/usr/share/pixmaps/blueplasma.png
 SlidePaths=/usr/share/wallpapers/
 
 [Containments][9][Applets][24][Configuration]

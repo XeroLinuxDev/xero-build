@@ -1,7 +1,7 @@
 [Appearance]
-BackgroundColorOpacity=60
+BackgroundColorOpacity=50
 HideSkinBorders=true
-Skin=arc-dark
+Skin=plasma-oxygen-panel-mod
 SkinInstalledWithKns=true
 Translucency=true
 
@@ -12,7 +12,7 @@ DefaultProfile=
 FirstRun=false
 
 [Window]
-Height=53
+Height=36
 KeepOpen=false
 ShowTabBar=false
-Width=70
+Width=147

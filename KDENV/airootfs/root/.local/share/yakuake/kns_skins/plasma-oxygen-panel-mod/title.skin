@@ -1,0 +1,45 @@
+[Description]
+Skin=Plasma: Oxygen.Panel 1.4 - Mod
+Author=Vidyu Krastev
+Email=lawlessbg@gmail.com
+Icon=/icon.png
+
+[Border]
+red=125
+green=125
+blue=125
+width=0
+
+[Text]
+x=26
+y=15
+red=240
+green=240
+blue=240
+text=KDE Terminal Emulator
+
+[Background]
+back_image=/title/back.png
+left_corner=/title/left.png
+right_corner=/title/right.png
+
+[FocusButton]
+x=53
+y=4
+up_image=/title/focus_up.png
+over_image=/title/focus_over.png
+down_image=/title/focus_down.png
+
+[ConfigButton]
+x=35
+y=4
+up_image=/title/config_up.png
+over_image=/title/config_over.png
+down_image=/title/config_down.png
+
+[QuitButton]
+x=17
+y=4
+up_image=/title/quit_up.png
+over_image=/title/quit_over.png
+down_image=/title/quit_down.png

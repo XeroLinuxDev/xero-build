@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# gpdetect — detect GPU(s) and safely remove unneeded firmware packages
+
+set -euo pipefail
+
+PKG_AMD="linux-firmware-amdgpu linux-firmware-radeon"
+PKG_NVIDIA="linux-firmware-nvidia"
+PKG_INTEL="linux-firmware-intel"
+
+# If running in a VM, remove all GPU firmware packages
+if systemd-detect-virt --quiet; then
+  for pkg in $PKG_AMD $PKG_NVIDIA $PKG_INTEL; do
+    pacman -Q "$pkg" &>/dev/null && pacman -Rdd --noconfirm "$pkg"
+  done
+  exit 0
+fi
+
+AMD=0
+NVIDIA=0
+INTEL=0
+
+# lspci-based detection
+if lspci | grep -Eiq "VGA|3D"; then
+  lspci | grep -E "VGA|3D" | while read -r line; do
+    case "$line" in
+      *AMD*|*ATI*)   AMD=1 ;;
+      *NVIDIA*)      NVIDIA=1 ;;
+      *Intel*)       INTEL=1 ;;
+    esac
+  done
+fi
+
+# DRM fallback detection
+for drmdev in /sys/class/drm/card*/device/vendor; do
+  [[ -f "$drmdev" ]] || continue
+  vendor=$(<"$drmdev")
+  case "$vendor" in
+    0x1002) AMD=1 ;;
+    0x10de) NVIDIA=1 ;;
+    0x8086) INTEL=1 ;;
+  esac
+done
+
+# Decide what to remove
+declare -a REMOVE=()
+
+if (( AMD )); then
+  (( NVIDIA == 0 )) && REMOVE+=($PKG_NVIDIA)
+  (( INTEL )) && REMOVE+=($PKG_NVIDIA $PKG_INTEL)
+elif (( NVIDIA )); then
+  REMOVE+=($PKG_AMD $PKG_INTEL)
+elif (( INTEL )); then
+  REMOVE+=($PKG_AMD $PKG_NVIDIA)
+else
+  # No GPU detected — remove all firmware
+  REMOVE+=($PKG_AMD $PKG_NVIDIA $PKG_INTEL)
+fi
+
+# Refine for hybrids
+if (( AMD && NVIDIA )); then
+  REMOVE=("${REMOVE[@]/linux-firmware-amdgpu}")
+  REMOVE=("${REMOVE[@]/linux-firmware-radeon}")
+  REMOVE=("${REMOVE[@]/linux-firmware-nvidia}")
+elif (( INTEL && AMD && !NVIDIA )); then
+  REMOVE=("${REMOVE[@]/linux-firmware-amdgpu}")
+  REMOVE=("${REMOVE[@]/linux-firmware-radeon}")
+elif (( INTEL && NVIDIA && !AMD )); then
+  REMOVE=("${REMOVE[@]/linux-firmware-amdgpu}")
+  REMOVE=("${REMOVE[@]/linux-firmware-radeon}")
+fi
+
+REMOVE=($(printf "%s\n" "${REMOVE[@]}" | awk 'NF' | sort -u))
+
+# Filter to only installed packages
+declare -a TO_REMOVE=()
+for pkg in "${REMOVE[@]}"; do
+  pacman -Q "$pkg" &>/dev/null && TO_REMOVE+=("$pkg")
+done
+
+# Remove only installed, needed packages
+if (( ${#TO_REMOVE[@]} > 0 )); then
+  pacman -Rdd --noconfirm "${TO_REMOVE[@]}" || true
+fi
+
+rm /usr/local/bin/gpdetect
