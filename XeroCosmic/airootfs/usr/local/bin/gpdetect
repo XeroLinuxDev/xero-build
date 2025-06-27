@@ -61,15 +61,32 @@ fi
 
 # Refine for hybrids
 if (( AMD && NVIDIA )); then
-  REMOVE=("${REMOVE[@]/linux-firmware-amdgpu}")
-  REMOVE=("${REMOVE[@]/linux-firmware-radeon}")
-  REMOVE=("${REMOVE[@]/linux-firmware-nvidia}")
+  # AMD + NVIDIA hybrid: keep both, remove Intel
+  TO_REMOVE=()
+  for pkg in "${REMOVE[@]}"; do
+    if [[ "$pkg" == "linux-firmware-intel" ]]; then
+      TO_REMOVE+=("$pkg")
+    fi
+  done
+  REMOVE=("${TO_REMOVE[@]}")
 elif (( INTEL && AMD && !NVIDIA )); then
-  REMOVE=("${REMOVE[@]/linux-firmware-amdgpu}")
-  REMOVE=("${REMOVE[@]/linux-firmware-radeon}")
+  # Intel + AMD hybrid: keep both, remove NVIDIA
+  TO_REMOVE=()
+  for pkg in "${REMOVE[@]}"; do
+    if [[ "$pkg" == "linux-firmware-nvidia" ]]; then
+      TO_REMOVE+=("$pkg")
+    fi
+  done
+  REMOVE=("${TO_REMOVE[@]}")
 elif (( INTEL && NVIDIA && !AMD )); then
-  REMOVE=("${REMOVE[@]/linux-firmware-amdgpu}")
-  REMOVE=("${REMOVE[@]/linux-firmware-radeon}")
+  # Intel + NVIDIA hybrid: keep both, remove AMD
+  TO_REMOVE=()
+  for pkg in "${REMOVE[@]}"; do
+    if [[ "$pkg" == "linux-firmware-amdgpu" || "$pkg" == "linux-firmware-radeon" ]]; then
+      TO_REMOVE+=("$pkg")
+    fi
+  done
+  REMOVE=("${TO_REMOVE[@]}")
 fi
 
 REMOVE=($(printf "%s\n" "${REMOVE[@]}" | awk 'NF' | sort -u))
