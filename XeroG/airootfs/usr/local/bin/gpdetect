@@ -5,6 +5,19 @@ set -euo pipefail
 
 PKG_AMD="linux-firmware-amdgpu linux-firmware-radeon"
 PKG_NVIDIA="linux-firmware-nvidia"
+PKG_INTEL="linux-firmware-intel"
+
+# If running in a VM, remove all GPU firmware packages at once
+if systemd-detect-virt --quiet; then
+  REMOVE=()
+  for pkg in $PKG_AMD $PKG_NVIDIA $PKG_INTEL; do
+    pacman -Q "$pkg" &>/dev/null && REMOVE+=("$pkg")
+  done
+  if (( ${#REMOVE[@]} > 0 )); then
+    pacman -Rdd --noconfirm "${REMOVE[@]}" || true
+  fi
+  exit 0
+fi
 
 AMD=0
 NVIDIA=0
@@ -37,11 +50,14 @@ declare -a REMOVE=()
 
 if (( AMD )); then
   (( NVIDIA == 0 )) && REMOVE+=($PKG_NVIDIA)
-  (( INTEL )) && REMOVE+=($PKG_NVIDIA)
+  (( INTEL )) && REMOVE+=($PKG_NVIDIA $PKG_INTEL)
 elif (( NVIDIA )); then
-  REMOVE+=($PKG_AMD)
+  REMOVE+=($PKG_AMD $PKG_INTEL)
 elif (( INTEL )); then
   REMOVE+=($PKG_AMD $PKG_NVIDIA)
+else
+  # No GPU detected — remove all firmware
+  REMOVE+=($PKG_AMD $PKG_NVIDIA $PKG_INTEL)
 fi
 
 # Refine for hybrids
@@ -59,15 +75,14 @@ fi
 
 REMOVE=($(printf "%s\n" "${REMOVE[@]}" | awk 'NF' | sort -u))
 
-# Filter to only installed packages
+# Filter to only installed packages and remove in one go
 declare -a TO_REMOVE=()
 for pkg in "${REMOVE[@]}"; do
   pacman -Q "$pkg" &>/dev/null && TO_REMOVE+=("$pkg")
 done
 
-# Remove only installed, needed packages
 if (( ${#TO_REMOVE[@]} > 0 )); then
   pacman -Rdd --noconfirm "${TO_REMOVE[@]}" || true
 fi
 
-#rm /usr/local/bin/gpdetect
+rm /usr/local/bin/gpdetect

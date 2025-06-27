@@ -7,11 +7,15 @@ PKG_AMD="linux-firmware-amdgpu linux-firmware-radeon"
 PKG_NVIDIA="linux-firmware-nvidia"
 PKG_INTEL="linux-firmware-intel"
 
-# If running in a VM, remove all GPU firmware packages
+# If running in a VM, remove all GPU firmware packages at once
 if systemd-detect-virt --quiet; then
+  REMOVE=()
   for pkg in $PKG_AMD $PKG_NVIDIA $PKG_INTEL; do
-    pacman -Q "$pkg" &>/dev/null && pacman -Rdd --noconfirm "$pkg"
+    pacman -Q "$pkg" &>/dev/null && REMOVE+=("$pkg")
   done
+  if (( ${#REMOVE[@]} > 0 )); then
+    pacman -Rdd --noconfirm "${REMOVE[@]}" || true
+  fi
   exit 0
 fi
 
@@ -71,13 +75,12 @@ fi
 
 REMOVE=($(printf "%s\n" "${REMOVE[@]}" | awk 'NF' | sort -u))
 
-# Filter to only installed packages
+# Filter to only installed packages and remove in one go
 declare -a TO_REMOVE=()
 for pkg in "${REMOVE[@]}"; do
   pacman -Q "$pkg" &>/dev/null && TO_REMOVE+=("$pkg")
 done
 
-# Remove only installed, needed packages
 if (( ${#TO_REMOVE[@]} > 0 )); then
   pacman -Rdd --noconfirm "${TO_REMOVE[@]}" || true
 fi
