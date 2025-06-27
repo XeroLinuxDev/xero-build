@@ -59,6 +59,7 @@ mc
 mdadm
 memtest86+
 memtest86+-efi
+mmc-utils
 mtools
 nano
 nbd
@@ -81,7 +82,6 @@ ppp
 pptpclient
 pv
 reflector
-rp-pppoe
 rsync
 screen
 sdparm
@@ -109,6 +109,7 @@ wvdial
 xdotool
 xfsprogs
 xl2tpd
+xdg-utils
 
 ### Kernel/Firmware
 
