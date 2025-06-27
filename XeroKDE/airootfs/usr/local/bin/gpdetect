@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
-# gpdetect — detect GPU(s) and safely remove unneeded firmware packages
+# Detect GPU(s) and remove unneeded firmware packages (for Calamares post-install)
 
 set -euo pipefail
 
 PKG_AMD="linux-firmware-amdgpu linux-firmware-radeon"
 PKG_NVIDIA="linux-firmware-nvidia"
 PKG_INTEL="linux-firmware-intel"
+
+AMD=0
+NVIDIA=0
+INTEL=0
 
 # If running in a VM, remove all GPU firmware packages at once
 if systemd-detect-virt --quiet; then
@@ -19,19 +23,15 @@ if systemd-detect-virt --quiet; then
   exit 0
 fi
 
-AMD=0
-NVIDIA=0
-INTEL=0
-
-# lspci-based detection
+# lspci-based detection (fixing variable scope)
 if lspci | grep -Eiq "VGA|3D"; then
-  lspci | grep -E "VGA|3D" | while read -r line; do
+  while IFS= read -r line; do
     case "$line" in
       *AMD*|*ATI*)   AMD=1 ;;
       *NVIDIA*)      NVIDIA=1 ;;
       *Intel*)       INTEL=1 ;;
     esac
-  done
+  done < <(lspci | grep -E "VGA|3D")
 fi
 
 # DRM fallback detection
@@ -46,8 +46,7 @@ for drmdev in /sys/class/drm/card*/device/vendor; do
 done
 
 # Decide what to remove
-declare -a REMOVE=()
-
+REMOVE=()
 if (( AMD )); then
   (( NVIDIA == 0 )) && REMOVE+=($PKG_NVIDIA)
   (( INTEL )) && REMOVE+=($PKG_NVIDIA $PKG_INTEL)
@@ -76,7 +75,7 @@ fi
 REMOVE=($(printf "%s\n" "${REMOVE[@]}" | awk 'NF' | sort -u))
 
 # Filter to only installed packages and remove in one go
-declare -a TO_REMOVE=()
+TO_REMOVE=()
 for pkg in "${REMOVE[@]}"; do
   pacman -Q "$pkg" &>/dev/null && TO_REMOVE+=("$pkg")
 done
@@ -85,4 +84,7 @@ if (( ${#TO_REMOVE[@]} > 0 )); then
   pacman -Rdd --noconfirm "${TO_REMOVE[@]}" || true
 fi
 
-rm /usr/local/bin/gpdetect
+# Remove this script after execution
+rm -- "$0"
+
+exit 0
