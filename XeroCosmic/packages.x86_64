@@ -116,6 +116,7 @@ xdg-utils
 linux
 linux-atm
 linux-headers
+linux-firmware-intel
 linux-firmware-nvidia
 linux-firmware-radeon
 linux-firmware-amdgpu
