@@ -171,6 +171,7 @@ calamares-app
 calamares-cosmic-cfg
 cosmic-desktop-config
 evolution-data-server
+xdg-terminal-exec-git
 
 ### Build Stuff
 

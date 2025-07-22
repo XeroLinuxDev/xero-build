@@ -166,6 +166,7 @@ kpmcore
 yaml-cpp
 boost-libs
 gtk-update-icon-cache
+xdg-terminal-exec-git
 
 ### mkinitcpio stuff
 

@@ -50,4 +50,5 @@ echo "End xerolinux-final"
 echo "#################################"
 rm /usr/local/bin/vcheck
 rm /usr/local/bin/all-cores
+rm /usr/local/bin/cala-launch
 rm /usr/local/bin/xerolinux-final

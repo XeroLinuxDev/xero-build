@@ -169,6 +169,7 @@ calamares-app
 calamares-g-cfg
 desktop-config-gnome
 evolution-data-server
+xdg-terminal-exec-git
 
 ### Build Stuff
 
@@ -562,6 +563,7 @@ gnome-shell-extension-blur-my-shell
 gnome-shell-extension-appindicator
 gnome-shell-extension-dash-to-dock
 gnome-shell-extension-weather-oclock
+gnome-shell-extension-desktop-icons-ng
 
 ### Useful shit
 

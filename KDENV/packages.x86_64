@@ -154,6 +154,7 @@ upd72020x-fw
 calamares-app
 orchis-config
 calamares-kde-nv
+xdg-terminal-exec-git
 
 ### Build Stuff
 
