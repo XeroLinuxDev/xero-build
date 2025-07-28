@@ -1,0 +1,80 @@
+#-------- Interface ---------
+[org/gnome/desktop/interface]
+#----------------------------
+accent-color='purple'
+cursor-theme='Adwaita'
+cursor-size=24
+icon-theme='Tela-circle-purple-dark'
+show-battery-percentage=true
+clock-show-date=true
+clock-show-seconds=false
+clock-show-weekday=false
+clock-format='12h'
+font-name='Cantarell 11'
+font-antialiasing='grayscale'
+font-hinting='slight'
+text-scaling-factor=1.0
+
+#---- Accessibility ----
+[org/gnome/desktop/a11y]
+#------------------------
+always-show-universal-access-status=false
+
+#-------- Sound ---------
+[org/gnome/desktop/sound]
+#------------------------
+theme-name='freedesktop'
+event-sounds=true
+input-feedback-sounds=false
+allow-volume-above-100-percent=false
+
+#-------------- Mouse ---------------
+[org/gnome/desktop/peripherals/mouse]
+#------------------------------------
+accel-profile='adaptive'
+natural-scroll=false
+speed=0.0
+
+#-------------- Touchpad ---------------
+[org/gnome/desktop/peripherals/touchpad]
+#---------------------------------------
+speed=0.0
+tap-to-click=true
+natural-scroll=true
+two-finger-scrolling-enabled=true
+disable-while-typing=true
+send-events='enabled'
+
+#---------------- Power -----------------
+[org/gnome/settings-daemon/plugins/power]
+#----------------------------------------
+power-button-action='suspend'
+power-saver-profile-on-low-battery=true
+dim-screen=true
+sleep-inactive-ac-type='suspend'
+sleep-inactive-ac-timeout=900
+sleep-inactive-battery-type='suspend'
+sleep-inactive-battery-timeout=900
+
+#--------------- Session ----------------
+[org/gnome/desktop/session]
+#----------------------------------------
+idle-delay=900
+
+#------------- Night Light --------------
+[org/gnome/settings-daemon/plugins/color]
+#----------------------------------------
+night-light-enabled=false
+night-light-temperature=uint32 2700
+night-light-schedule-automatic=true
+night-light-schedule-from=20.0
+night-light-schedule-to=6.0
+
+#----- Login Screen ----
+[org/gnome/login-screen]
+#-----------------------
+logo='/etc/gdm-logo'
+banner-message-enable=false
+banner-message-text=''
+disable-restart-buttons=false
+disable-user-list=false

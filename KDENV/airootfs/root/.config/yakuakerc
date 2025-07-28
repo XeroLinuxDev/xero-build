@@ -1,0 +1,18 @@
+[Appearance]
+BackgroundColorOpacity=50
+HideSkinBorders=true
+Skin=plasma-oxygen-panel-mod
+SkinInstalledWithKns=true
+Translucency=true
+
+[Desktop Entry]
+DefaultProfile=
+
+[Dialogs]
+FirstRun=false
+
+[Window]
+Height=36
+KeepOpen=false
+ShowTabBar=false
+Width=147

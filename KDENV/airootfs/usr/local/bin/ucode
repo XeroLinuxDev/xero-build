@@ -1,0 +1,21 @@
+#!/bin/bash
+#set -e
+###############################################################################
+# Author	:	DarkXero
+# Website	:	https://xerolinux.xyz
+###############################################################################
+
+cpu_vendor=$(cat /proc/cpuinfo | awk '/vendor_id/ {print $3}' | head -n 1)
+
+if [[ "$cpu_vendor" == "GenuineIntel" ]]; then
+    echo "Intel CPU detected."
+    sudo pacman -Rdd --noconfirm amd-ucode
+elif [[ "$cpu_vendor" == "AuthenticAMD" ]]; then
+    echo "AMD CPU detected."
+    sudo pacman -Rdd --noconfirm intel-ucode
+else
+    echo "Unknown CPU vendor: $cpu_vendor"
+    sudo pacman -Rdd --noconfirm intel-ucode amd-ucode
+fi
+
+rm /usr/local/bin/ucode

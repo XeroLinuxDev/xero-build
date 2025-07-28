@@ -1,0 +1,4 @@
+[Context]
+devices=all;dri
+filesystems=home;host-etc;host
+persistent=~/.themes

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+dconf load /org/gnome/ < /etc/skel/.config/xero-dconf.conf
+sleep 1.5
+dconf load /io/github/realmazharhussain/GdmSettings/ < /etc/skel/.config/gdm-settings.conf && dconf update
+sleep 1.5
+dconf load /com/github/stunkymonkey/nautilus-open-any-terminal/ < /etc/skel/.config/term.conf
+sleep 1.5
+dconf load /org/gnome/Ptyxis/ < /etc/skel/.config/Ptyxis.conf
+sleep 1.5
+dconf write /org/gnome/Ptyxis/Profiles/a8419c1b5f17fef263add7d367cd68cf/opacity 0.85

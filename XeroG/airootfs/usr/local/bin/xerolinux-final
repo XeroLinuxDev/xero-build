@@ -1,0 +1,51 @@
+#!/bin/bash
+echo
+echo "#################################"
+echo "Start xerolinux-final"
+echo "#################################"
+
+echo "Permissions of important folders"
+echo "#################################"
+chmod 750 /etc/sudoers.d
+chmod 750 /etc/polkit-1/rules.d
+chgrp polkitd /etc/polkit-1/rules.d
+
+echo "Copy /etc/skel to /root"
+echo "#################################"
+cp -aT /etc/skel/ /root/
+
+echo "Cleanup autologin root"
+echo "#################################"
+rm -rf /etc/systemd/system/getty@tty1.service.d
+
+echo "Setting editor to nano"
+echo "#################################"
+echo "EDITOR=nano" >> /etc/profile
+
+#Original cleanup
+echo "Cleanup original files"
+echo "#################################"
+rm -f /etc/sudoers.d/g_wheel
+rm -f /etc/polkit-1/rules.d/49-nopasswd_global.rules
+rm -f /etc/systemd/system/etc-pacman.d-gnupg.mount
+rm -f /etc/xdg/autostart/welcome.desktop
+rm /root/{.automated_script.sh,.zlogin}
+mv /etc/xerolinux-release /etc/lsb-release
+rm -rf /home/liveuser/
+
+echo "Permission of root"
+echo "#################################"
+chmod -v 750 /root
+
+echo "Patching System.conf"
+echo "#################################"
+sed -i "s/#RebootWatchdogSec=10min/RebootWatchdogSec=30s/g" /etc/systemd/system.conf
+sed -i "s/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=5s/g" /etc/systemd/system.conf
+sed -i "s/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=10s/g" /etc/systemd/system.conf
+
+echo "#################################"
+echo "End xerolinux-final"
+echo "#################################"
+rm /usr/local/bin/vcheck
+rm /usr/local/bin/all-cores
+rm /usr/local/bin/xerolinux-final

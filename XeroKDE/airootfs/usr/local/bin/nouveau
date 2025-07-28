@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+echo "Blacklisting Nouveau"
+
+if [ -f /etc/default/grub ];then
+
+        if ! grep -q "modprobe.blacklist=nouveau" /etc/default/grub; then
+
+        if grep -q "^GRUB_CMDLINE_LINUX_DEFAULT=\".*\"" /etc/default/grub; then
+            # Handles double quotes
+            sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/\"$/ nowatchdog modprobe.blacklist=nouveau\"/" /etc/default/grub
+        elif grep -q "^GRUB_CMDLINE_LINUX_DEFAULT='.*'" /etc/default/grub; then
+            # Handles single quotes
+            sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/'$/ nowatchdog modprobe.blacklist=nouveau'/" /etc/default/grub
+        fi
+        fi
+
+        echo "Updating Grub"
+
+        grub-install --target=x86_64-efi --efi-directory=/boot/efi --force --recheck
+        grub-mkconfig -o /boot/grub/grub.cfg
+
+        echo "Writing grub to /bootloader"
+        echo "grub" | dd of="/bootloader"
+
+fi
+
+rm /usr/local/bin/nouveau

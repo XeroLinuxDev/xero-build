@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+# Detect GPU(s) and remove unneeded firmware packages (for Calamares post-install)
+
+set -euo pipefail
+
+PKG_AMD="linux-firmware-amdgpu linux-firmware-radeon"
+PKG_NVIDIA="linux-firmware-nvidia"
+PKG_INTEL="linux-firmware-intel"
+
+AMD=0
+NVIDIA=0
+INTEL=0
+
+# If running in a VM, remove all GPU firmware packages at once
+if systemd-detect-virt --quiet; then
+  REMOVE=()
+  for pkg in $PKG_AMD $PKG_NVIDIA $PKG_INTEL; do
+    pacman -Q "$pkg" &>/dev/null && REMOVE+=("$pkg")
+  done
+  if (( ${#REMOVE[@]} > 0 )); then
+    pacman -Rdd --noconfirm "${REMOVE[@]}" || true
+  fi
+  exit 0
+fi
+
+# lspci-based detection (fixing variable scope)
+if lspci | grep -Eiq "VGA|3D"; then
+  while IFS= read -r line; do
+    case "$line" in
+      *AMD*|*ATI*)   AMD=1 ;;
+      *NVIDIA*)      NVIDIA=1 ;;
+      *Intel*)       INTEL=1 ;;
+    esac
+  done < <(lspci | grep -E "VGA|3D")
+fi
+
+# DRM fallback detection
+for drmdev in /sys/class/drm/card*/device/vendor; do
+  [[ -f "$drmdev" ]] || continue
+  vendor=$(<"$drmdev")
+  case "$vendor" in
+    0x1002) AMD=1 ;;
+    0x10de) NVIDIA=1 ;;
+    0x8086) INTEL=1 ;;
+  esac
+done
+
+# Decide what to remove
+REMOVE=()
+if (( AMD )); then
+  (( NVIDIA == 0 )) && REMOVE+=($PKG_NVIDIA)
+  (( INTEL )) && REMOVE+=($PKG_NVIDIA $PKG_INTEL)
+elif (( NVIDIA )); then
+  REMOVE+=($PKG_AMD $PKG_INTEL)
+elif (( INTEL )); then
+  REMOVE+=($PKG_AMD $PKG_NVIDIA)
+else
+  # No GPU detected — remove all firmware
+  REMOVE+=($PKG_AMD $PKG_NVIDIA $PKG_INTEL)
+fi
+
+# Refine for hybrids
+if (( AMD && NVIDIA )); then
+  # AMD + NVIDIA hybrid: keep both, remove Intel
+  TO_REMOVE=()
+  for pkg in "${REMOVE[@]}"; do
+    if [[ "$pkg" == "linux-firmware-intel" ]]; then
+      TO_REMOVE+=("$pkg")
+    fi
+  done
+  REMOVE=("${TO_REMOVE[@]}")
+elif (( INTEL && AMD && !NVIDIA )); then
+  # Intel + AMD hybrid: keep both, remove NVIDIA
+  TO_REMOVE=()
+  for pkg in "${REMOVE[@]}"; do
+    if [[ "$pkg" == "linux-firmware-nvidia" ]]; then
+      TO_REMOVE+=("$pkg")
+    fi
+  done
+  REMOVE=("${TO_REMOVE[@]}")
+elif (( INTEL && NVIDIA && !AMD )); then
+  # Intel + NVIDIA hybrid: keep both, remove AMD
+  TO_REMOVE=()
+  for pkg in "${REMOVE[@]}"; do
+    if [[ "$pkg" == "linux-firmware-amdgpu" || "$pkg" == "linux-firmware-radeon" ]]; then
+      TO_REMOVE+=("$pkg")
+    fi
+  done
+  REMOVE=("${TO_REMOVE[@]}")
+fi
+
+REMOVE=($(printf "%s\n" "${REMOVE[@]}" | awk 'NF' | sort -u))
+
+# Filter to only installed packages and remove in one go
+TO_REMOVE=()
+for pkg in "${REMOVE[@]}"; do
+  pacman -Q "$pkg" &>/dev/null && TO_REMOVE+=("$pkg")
+done
+
+if (( ${#TO_REMOVE[@]} > 0 )); then
+  pacman -Rdd --noconfirm "${TO_REMOVE[@]}" || true
+fi
+
+# Remove this script after execution
+rm -- "$0"
+
+exit 0

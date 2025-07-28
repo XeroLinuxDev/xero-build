@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#set -e
+##################################################################################################################
+# Author: DarkXero
+# Website: https://xerolinux.xyz
+##################################################################################################################
+#!/usr/bin/env bash
+#!/usr/bin/env bash
+clear
+
+tput setaf 2
+cat <<'EOF'
+#########################################
+           Calamares Launcher
+#########################################
+EOF
+tput sgr0
+echo
+
+echo "Please select Calamares Version:"
+echo
+echo "1) Calamares KDE/Gnome"
+echo "2) Calamares Cosmic (Alpha)"
+echo
+
+read -rp "Enter selection (1 or 2): " choice
+
+case "$choice" in
+  1)
+    echo
+    echo "Starting Calamares KDE/Gnome..."
+    sudo -b su -c "calamares &"
+    ;;
+  2)
+    echo
+    echo "Starting Calamares Cosmic..."
+    sudo -b -E su -c "calamares &"
+    ;;
+  *)
+    echo "Invalid selection. Exiting."
+    exit 1
+    ;;
+esac
+
+exit 0
