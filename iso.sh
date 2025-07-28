@@ -25,7 +25,7 @@ read -p "Enter selection (1, 2 or 3): " choice
 
 case "$choice" in
   1)
-    desktop="plasma"
+    desktop="kde"
     dmDesktop="plasma"
     profileFolder="XeroKDE"
     outputSubFolder="KDE"
