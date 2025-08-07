@@ -4,7 +4,7 @@ This month's version includes a lot of changes and some minor fixes. See list be
 
 #### Chages/Fixes
 
-- Updated to KDE 6.4.
+- Updated to KDE 6.4.0.
 - Removed BTRFS support.
 - Moved Wine to Steam (Toolkit).
 - Set Falkon as the default Browser.
