@@ -8,10 +8,10 @@ if [ -f /etc/default/grub ];then
 
         if grep -q "^GRUB_CMDLINE_LINUX_DEFAULT=\".*\"" /etc/default/grub; then
             # Handles double quotes
-            sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/\"$/ nowatchdog modprobe.blacklist=nouveau\"/" /etc/default/grub
+            sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/\"$/ nowatchdog loglevel=3 nvme_load=yes modprobe.blacklist=nouveau\"/" /etc/default/grub
         elif grep -q "^GRUB_CMDLINE_LINUX_DEFAULT='.*'" /etc/default/grub; then
             # Handles single quotes
-            sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/'$/ nowatchdog modprobe.blacklist=nouveau'/" /etc/default/grub
+            sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/'$/ nowatchdog loglevel=3 nvme_load=yes modprobe.blacklist=nouveau'/" /etc/default/grub
         fi
         fi
 
