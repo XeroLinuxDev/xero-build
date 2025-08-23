@@ -117,8 +117,6 @@ linux
 linux-atm
 linux-headers
 linux-firmware-intel
-linux-firmware-nvidia
-linux-firmware-radeon
 linux-firmware-amdgpu
 
 ### Grub Stuff
@@ -599,7 +597,6 @@ audiocd-kio
 ### KDE Applications Selection
 ### https://archlinux.org/groups/x86_64/kde-applications/
 
-cervisia
 akregator
 
 ### KDE Wayland
