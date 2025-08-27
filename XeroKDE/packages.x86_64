@@ -14,7 +14,7 @@ base-devel
 bind
 bolt
 brltty
-btrfs-progs
+#btrfs-progs
 clonezilla
 cloud-init
 darkhttpd
@@ -32,7 +32,7 @@ efibootmgr
 espeakup
 ethtool
 exfatprogs
-f2fs-tools
+#f2fs-tools
 fatresize
 foot-terminfo
 fd
@@ -43,7 +43,7 @@ gptfdisk
 hdparm
 hyperv
 irssi
-jfsutils
+#jfsutils
 kitty-terminfo
 ldns
 less
@@ -65,7 +65,7 @@ nano
 nbd
 ndisc6
 nfs-utils
-nilfs-utils
+#nilfs-utils
 nmap
 ntfs-3g
 nvme-cli
@@ -91,7 +91,7 @@ smartmontools
 sof-firmware
 squashfs-tools
 sudo
-syslinux
+#syslinux
 tcpdump
 terminus-font
 testdisk
