@@ -133,10 +133,8 @@ chaotic-mirrorlist
 
 ### XeroLinux Build
 
-
 preload
 xlapit-cli
-upd72020x-fw
 calamares-app
 calamares-cfg
 desktop-config
