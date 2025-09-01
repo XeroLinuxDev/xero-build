@@ -13,7 +13,7 @@
 I call this the **Flagship** simply because I use it and have been using it since its inception and it's the DE I love and contribute to the most. It can be unstable at times however, since it's constantly evolving and keeps getting new features non stop making the most customizable/riceable DE out there. That's why I love it so much. So it's targeted to anyone who likes that level of tinkering...
 
 <p align="center">
-    <img src="https://i.imgur.com/kAuKy3d.png" alt="logo">
+    <img src="https://i.imgur.com/qvFuDYO.png" alt="logo">
 </p>
 
 ### GTK Theming
