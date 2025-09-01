@@ -12,11 +12,13 @@ b43-fwcutter
 ### FS Tools
 
 rsync
+sdparm
 ntfs-3g
 gptfdisk
 xfsprogs
 tpm2-tss
 udftools
+syslinux
 fatresize
 nfs-utils
 e2fsprogs
@@ -40,6 +42,7 @@ timeshift
 partclone
 partimage
 clonezilla
+open-iscsi
 memtest86+-efi
 usb_modeswitch
 
@@ -70,6 +73,7 @@ sudo
 tldr
 nmap
 irssi
+mdadm
 wvdial
 hyperv
 mtools
@@ -89,6 +93,7 @@ man-pages
 diffutils
 mmc-utils
 sg3_utils
+dmidecode
 efibootmgr
 sequoia-sq
 edk2-shell
@@ -161,6 +166,7 @@ mkinitcpio-nfs-utils
 
 ### Tools
 
+mpv
 hblock
 cryptsetup
 brightnessctl
@@ -181,6 +187,17 @@ xorg-apps
 xorg-xinit
 xorg-server
 xorg-xwayland
+
+### Essentials
+
+xmlto
+ckbcomp
+kpmcore
+yaml-cpp
+kirigami
+boost-libs
+polkit-gnome
+gtk-update-icon-cache
 
 #######################################################
 ###                  Hardware                       ###
