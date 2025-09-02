@@ -27,7 +27,7 @@ That's it for this month. Just make sure to update the system post-install befor
 
 #### Common updates
 
-Updated to latest Kernel (6.16.4), included **Orca** Screen Reader accessibility option for the blind. Also added **Cameractrls** for more advanced camera controls, like colors and such for all WebCams. WPlease do not attempt installing on a Pre-EFI (Legacy) system, support will be removed soon.
+Updated to latest Kernel (6.16.4), included **Orca** Screen Reader accessibility option for the blind. Also added **Cameractrls** for more advanced camera controls, like colors and such for all WebCams. Please do not attempt installing on a Pre-EFI (Legacy) system, support will be removed soon.
 
 <h3 align="center">---------------------------------------------------------------------------</h3>
 
