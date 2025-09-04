@@ -332,6 +332,7 @@ figlet
 ostree
 lolcat
 numlockx
+localsend
 lm_sensors
 appstream-glib
 lib32-lm_sensors

@@ -350,6 +350,7 @@ ostree
 lolcat
 flatseal
 numlockx
+localsend
 lm_sensors
 gdm-settings
 appstream-glib
