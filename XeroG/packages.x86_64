@@ -243,6 +243,7 @@ onboard
 fprintd
 libinput
 gestures
+cameractrls
 xf86-input-void
 xf86-input-evdev
 iio-sensor-proxy

@@ -32,6 +32,7 @@ rm -f /etc/systemd/system/etc-pacman.d-gnupg.mount
 rm /root/{.automated_script.sh,.zlogin}
 mv /etc/xerolinux-release /etc/lsb-release
 rm -rf /home/liveuser/
+rm -rf /etc/lightdm/
 
 echo "Permission of root"
 echo "#################################"

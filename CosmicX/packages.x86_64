@@ -4,112 +4,103 @@
 
 ### Base stuff
 
-archiso
-b43-fwcutter
 base
+archiso
 base-devel
+b43-fwcutter
 
-### More Stuff
+### FS Tools
 
-bind
-bolt
-brltty
-btrfs-progs
-clonezilla
-cloud-init
-darkhttpd
-ddrescue
-dhclient
-dhcpcd
-diffutils
-dmidecode
-dmraid
-dnsmasq
-dosfstools
-e2fsprogs
-edk2-shell
-efibootmgr
-espeakup
-ethtool
-exfatprogs
-f2fs-tools
-fatresize
-foot-terminfo
-fd
-fsarchiver
-gpart
-gpm
-gptfdisk
-hdparm
-hyperv
-irssi
-jfsutils
-kitty-terminfo
-ldns
-less
-lftp
-libfido2
-libusb-compat
-lsscsi
-lvm2
-lynx
-man-db
-man-pages
-mc
-mdadm
-memtest86+
-memtest86+-efi
-mmc-utils
-mtools
-nano
-nbd
-ndisc6
-nfs-utils
-nilfs-utils
-nmap
-ntfs-3g
-nvme-cli
-open-iscsi
-openconnect
-openpgp-card-tools
-openssh
-openvpn
-partclone
-parted
-partimage
-pcsclite
-ppp
-pptpclient
-pv
-reflector
 rsync
-screen
 sdparm
-sequoia-sq
-sg3_utils
-smartmontools
-sof-firmware
-squashfs-tools
-sudo
-syslinux
-tcpdump
-terminus-font
-testdisk
-tldr
-tmux
-tpm2-tools
+ntfs-3g
+gptfdisk
+xfsprogs
 tpm2-tss
 udftools
-usb_modeswitch
+syslinux
+fatresize
+nfs-utils
+e2fsprogs
+dosfstools
+exfatprogs
+tpm2-tools
+fsarchiver
+squashfs-tools
+
+### HDD Tools
+
+gpart
+dmraid
+parted
+hdparm
 usbmuxd
 usbutils
-vpnc
-wireguard-tools
+testdisk
+ddrescue
+timeshift
+partclone
+partimage
+clonezilla
+open-iscsi
+memtest86+-efi
+usb_modeswitch
+
+### Terminal
+
+fd
+nano
+tmux
+brltty
+msedit
+nvme-cli
+terminus-font
+foot-terminfo
+kitty-terminfo
+
+### Other crap
+
+pv
+mc
+gpm
+nbd
+lvm2
+bolt
+bind
+less
+lynx
+sudo
+tldr
+nmap
+irssi
+mdadm
 wvdial
-xdotool
-xfsprogs
+hyperv
+mtools
+lsscsi
+ndisc6
+screen
+man-db
 xl2tpd
+tcpdump
+ethtool
+xdotool
+pcsclite
+espeakup
+libfido2
 xdg-utils
+man-pages
+diffutils
+mmc-utils
+sg3_utils
+dmidecode
+efibootmgr
+sequoia-sq
+edk2-shell
+sof-firmware
+libusb-compat
+smartmontools
+wireguard-tools
 
 ### Kernel/Firmware
 
@@ -117,8 +108,6 @@ linux
 linux-atm
 linux-headers
 linux-firmware-intel
-linux-firmware-nvidia
-linux-firmware-radeon
 linux-firmware-amdgpu
 
 ### Grub Stuff
@@ -135,21 +124,8 @@ ntp
 most
 wget
 dialog
-repoctl
 dnsutils
 logrotate
-
-### Wayland Stuff
-
-waypipe
-wayland
-kwayland5
-qt6-wayland
-egl-wayland
-xorg-xwayland
-lib32-wayland
-wayland-utils
-wayland-protocols
 
 #######################################################
 ###                  Required                       ###
@@ -217,15 +193,9 @@ xorg-xwayland
 
 ### Essentials
 
-xmlto
-ckbcomp
-kpmcore
-yaml-cpp
 kirigami
-boost-libs
 polkit-gnome
 xero-fix-scripts
-gtk-update-icon-cache
 
 #######################################################
 ###                  Hardware                       ###
@@ -255,6 +225,7 @@ piper
 fprintd
 libinput
 gestures
+cameractrls
 xf86-input-void
 xf86-input-evdev
 iio-sensor-proxy
@@ -315,7 +286,6 @@ smbclient
 net-tools
 openresolv
 traceroute
-b43-fwcutter
 modemmanager
 networkmanager
 nm-cloud-setup
@@ -330,7 +300,6 @@ networkmanager-openvpn
 ### Virtual Machine
 
 spice-vdagent
-open-vm-tools
 qemu-guest-agent
 virtualbox-guest-utils
 
@@ -346,6 +315,7 @@ ostree
 lolcat
 flatseal
 numlockx
+localsend
 lm_sensors
 appstream-glib
 
@@ -443,12 +413,18 @@ python-websockets
 #######################################################
 
 xdg-user-dirs
+cosmic-bg-git
 cosmic-term-git
 cosmic-edit-git
+cosmic-idle-git
+cosmic-randr-git
 cosmic-player-git
 cosmic-session-git
+cosmic-settings-git
+cosmic-screenshot-git
 cosmic-wallpapers-git
 cosmic-app-library-git
+xdg-desktop-portal-cosmic-git
 
 #######################################################
 ###              COSMIC Desktop Extras              ###
@@ -457,8 +433,8 @@ cosmic-app-library-git
 ### Display Manager
 
 lightdm
+cosmic-greeter
 lightdm-gtk-greeter
-lightdm-gtk-greeter-settings
 
 ### System
 
