@@ -35,5 +35,6 @@ file_permissions=(
   ["/usr/local/bin/ucode"]="0:0:755"
   ["/usr/local/bin/fsprogschk"]="0:0:755"
   ["/usr/local/bin/nouveau"]="0:0:755"
+  ["/usr/local/bin/xinstall"]="0:0:755"
   ["/usr/local/bin/cala-launch"]="0:0:755"
   )
