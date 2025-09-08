@@ -107,8 +107,6 @@ wireguard-tools
 linux
 linux-atm
 linux-headers
-linux-firmware-intel
-linux-firmware-amdgpu
 
 ### Grub Stuff
 
@@ -210,6 +208,8 @@ intel-ucode
 
 orca
 mesa
+amd-drv
+intel-drv
 autorandr
 mesa-utils
 lib32-mesa

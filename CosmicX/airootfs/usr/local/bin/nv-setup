@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+# nvidia-driver-setup — Calamares (chroot) friendly
+# Arch-only. Detect NVIDIA, choose pre-Turing vs Turing+, install packages,
+# tweak GRUB & mkinitcpio, enable NVIDIA PM services, rebuild initramfs.
+# Safe no-op if no NVIDIA GPU is present.
+
+set -euo pipefail
+
+require() { command -v "$1" >/dev/null 2>&1 || { echo "Missing: $1" >&2; exit 1; }; }
+require lspci
+require sed
+require pacman
+
+echo "==> Detecting NVIDIA GPU…"
+nvidia_lines="$(lspci -nn | grep -Ei 'VGA compatible controller|3D controller' | grep -Ei 'NVIDIA|10de:') || true"
+if [[ -z "${nvidia_lines}" ]]; then
+  echo "No NVIDIA GPU detected. Skipping NVIDIA setup."
+  exit 0
+fi
+echo "${nvidia_lines}" | head -n1
+gpu_line="$(echo "$nvidia_lines" | head -n1)"
+
+# Extract PCI IDs and (if present) codename token (TU/GA/AD/GH/GB)
+pci_id_hex="$(echo "$gpu_line" | sed -n 's/.*\[\([0-9a-fA-F]\{4\}:[0-9a-fA-F]\{4\}\)\].*/\1/p')"
+device_id="$(echo "$pci_id_hex" | cut -d: -f2 | tr '[:lower:]' '[:upper:]')"
+chip_token="$(echo "$gpu_line" | grep -Eo '\b(TU|GA|AD|GH|GB)[0-9]{2,3}\b' || true)"
+
+is_turing_or_newer=false
+if [[ -n "$chip_token" ]]; then
+  case "$chip_token" in
+    TU*|GA*|AD*|GH*|GB*) is_turing_or_newer=true ;;
+  esac
+else
+  # coarse device-id prefix heuristic
+  prefix="${device_id:0:2}"
+  case "$prefix" in
+    1E|1F|22|23|24|25|26|27|28|29|2A|2B|30|31|32) is_turing_or_newer=true ;;
+  esac
+fi
+
+# multilib detection (in target chroot)
+multilib_enabled=false
+if command -v pacman-conf >/dev/null 2>&1; then
+  pacman-conf -l | grep -qx '\[multilib\]' && multilib_enabled=true
+else
+  if grep -q '^\[multilib\]' /etc/pacman.conf && ! grep -q '^\s*#\s*\[multilib\]' /etc/pacman.conf; then
+    multilib_enabled=true
+  fi
+fi
+echo "==> multilib: $multilib_enabled"
+
+# Pick headers for kernels installed in the TARGET (we are chrooted)
+headers_pkgs=()
+has_pkg() { pacman -Qq "$1" >/dev/null 2>&1; }
+if has_pkg linux;     then headers_pkgs+=("linux-headers"); fi
+if has_pkg linux-lts; then headers_pkgs+=("linux-lts-headers"); fi
+if has_pkg linux-zen; then headers_pkgs+=("linux-zen-headers"); fi
+# Fallback (rare, but just in case)
+[[ ${#headers_pkgs[@]} -eq 0 ]] && headers_pkgs=("linux-headers")
+echo "==> Target kernel headers: ${headers_pkgs[*]}"
+
+# Package sets (your exact lists)
+COMMON_PKGS=(nvidia-utils nvidia-settings vulkan-icd-loader egl-wayland opencl-nvidia libvdpau-va-gl libvdpau linux-firmware-nvidia)
+COMMON_PKGS_32=(lib32-nvidia-utils lib32-vulkan-icd-loader lib32-opencl-nvidia)
+
+if $is_turing_or_newer; then
+  driver_pkg="nvidia-open-dkms"
+  echo "==> Detected Turing-or-newer (${chip_token:-PCI ${device_id}}) -> ${driver_pkg}"
+else
+  driver_pkg="nvidia-dkms"
+  echo "==> Detected pre-Turing (${chip_token:-PCI ${device_id}}) -> ${driver_pkg}"
+fi
+
+PKGS=("${headers_pkgs[@]}" "$driver_pkg" "${COMMON_PKGS[@]}")
+$multilib_enabled && PKGS+=("${COMMON_PKGS_32[@]}")
+
+echo "==> Installing: ${PKGS[*]}"
+pacman -Syu --needed --noconfirm "${PKGS[@]}"
+
+# GRUB: add nvidia-drm.modeset=1 and regenerate
+if [[ -f /etc/default/grub ]]; then
+  echo "==> Ensuring nvidia-drm.modeset=1 in GRUB…"
+  if ! grep -q "nvidia-drm.modeset=1" /etc/default/grub; then
+    if grep -q '^GRUB_CMDLINE_LINUX_DEFAULT=".*"' /etc/default/grub; then
+      sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT=/s/"$/ nvidia-drm.modeset=1"/' /etc/default/grub
+    elif grep -q "^GRUB_CMDLINE_LINUX_DEFAULT='.*'" /etc/default/grub; then
+      sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/'$/ nvidia-drm.modeset=1'/" /etc/default/grub
+    fi
+  fi
+  if command -v grub-mkconfig >/dev/null 2>&1; then
+    echo "==> Updating GRUB config…"
+    grub-mkconfig -o /boot/grub/grub.cfg || true
+  fi
+fi
+
+# mkinitcpio: ensure NVIDIA modules are listed
+if [[ -f /etc/mkinitcpio.conf ]]; then
+  echo "==> Ensuring NVIDIA modules in mkinitcpio.conf…"
+  REQUIRED_MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+  current_line="$(grep -E '^[[:space:]]*MODULES=' /etc/mkinitcpio.conf || true)"
+  if [[ "$current_line" =~ ^[[:space:]]*MODULES=\"\"$ ]]; then
+    sed -i 's/^[[:space:]]*MODULES=""/MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"/' /etc/mkinitcpio.conf
+  elif [[ "$current_line" =~ ^[[:space:]]*MODULES=\(\)$ ]]; then
+    sed -i 's/^[[:space:]]*MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
+  else
+    for mod in "${REQUIRED_MODULES[@]}"; do
+      if ! grep -qE "^[[:space:]]*MODULES=.*\b${mod}\b" /etc/mkinitcpio.conf; then
+        sed -i "/^[[:space:]]*MODULES=\(/ s/)[[:space:]]*$/ ${mod})/" /etc/mkinitcpio.conf
+      fi
+    done
+  fi
+fi
+
+# Enable NVIDIA PM services (creates symlinks; systemd need not be running)
+echo "==> Enabling NVIDIA power-management services…"
+systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service || true
+
+# Rebuild initramfs for all installed kernels
+echo "==> Rebuilding initramfs…"
+if command -v mkinitcpio >/dev/null 2>&1; then
+  mkinitcpio -P
+elif command -v dracut >/dev/null 2>&1; then
+  # build for all kernels present
+  for kv in /usr/lib/modules/*; do
+    [[ -d "$kv" ]] || continue
+    dracut --force --kver "$(basename "$kv")"
+  done
+fi
+
+echo "==> NVIDIA driver setup complete. Reboot after install."
+rm /usr/local/bin/nv-setup
