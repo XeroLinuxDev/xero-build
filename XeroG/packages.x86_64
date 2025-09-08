@@ -642,6 +642,7 @@ node-gyp
 intltool
 graphviz
 pkgstats
+pciutils
 inetutils
 downgrade
 s3fs-fuse

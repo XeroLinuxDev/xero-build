@@ -86,6 +86,7 @@ tcpdump
 ethtool
 xdotool
 pcsclite
+pciutils
 espeakup
 libfido2
 xdg-utils
