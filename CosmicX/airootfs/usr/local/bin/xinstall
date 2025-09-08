@@ -32,7 +32,7 @@ printf '%s\n' "$BODY" | yad --text-info --wrap \
   case $exit_code in
     1) xdg-open "https://xerolinux.xyz" ;;
     2) xdg-open "https://fosstodon.org/@XeroLinux" ;;
-    3) sudo calamares ;;
+    3) sudo -E calamares ;;
     3) xdg-open "https://discord.xerolinux.xyz" ;;
     4) xdg-open "https://youtube.com/@XeroLinux" ;;
     0) break ;; # User closed the window
