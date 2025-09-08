@@ -8,7 +8,7 @@ RESIZED_LOGO="/tmp/resized_logo.png"
 convert "$LOGO" -resize 128x128 "$RESIZED_LOGO"
 
 # Split header (with markup) from body (plain text in scroll area)
-HEADER=$'<b>WELCOME TO XEROLINUX</b>\n\n<b>!!! Please make sure you are connected to the Internet before proceeding !!!</b>'
+HEADER=$'<b>WELCOME TO XEROLINUX</b>\n\n<b><span foreground="red">!!! Please make sure you are connected to the Internet before proceeding !!!</span></b>'
 BODY=$'\nXeroLinux is an innovative Arch-based distribution that simplifies installation while maintaining Arch Linux’s core focus on user customization. It provides pre-configured, functional environments as a clean starting point, encouraging users to learn and shape their system’s configuration rather than relying on heavy modifications.\n\nSuitable for production, gaming, or development, XeroLinux includes a toolkit and system enhancements that offer a polished foundation with plenty of flexibility for personalization and growth.'
 
 # Show dialog: logo on top, bold header label, scrollable body, centered button
