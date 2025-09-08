@@ -12,15 +12,41 @@ require sed
 require pacman
 
 echo "==> Detecting NVIDIA GPU…"
-nvidia_lines="$(lspci -nn | grep -Ei 'VGA compatible controller|3D controller' | grep -Ei 'NVIDIA|10de:') || true"
-if [[ -z "${nvidia_lines}" ]]; then
-  echo "No NVIDIA GPU detected. Skipping NVIDIA setup."
+
+detect_with_lspci() {
+  command -v lspci >/dev/null 2>&1 || return 1
+  set +e
+  local lines
+  lines="$(lspci -nn | grep -Ei 'VGA compatible controller|3D controller' | grep -Ei 'NVIDIA|10de:')"
+  local rc=$?
+  set -e
+  [[ $rc -eq 0 && -n "$lines" ]] || return 1
+  echo "$lines" | head -n1
+  return 0
+}
+
+detect_with_sysfs() {
+  for d in /sys/bus/pci/devices/*; do
+    [[ -e "$d/vendor" ]] || continue
+    if [[ "$(cat "$d/vendor" 2>/dev/null)" == "0x10de" ]]; then
+      local dev_id="$(cat "$d/device" 2>/dev/null)"   # e.g. 0x1f08
+      local class="$(cat "$d/class" 2>/dev/null)"     # 0x03xxxx = display/3D
+      [[ "$class" == 0x03* ]] || continue
+      echo "NVIDIA GPU [10de:${dev_id#0x}]"
+      return 0
+    fi
+  done
+  return 1
+}
+
+gpu_line="$(detect_with_lspci || detect_with_sysfs || true)"
+if [[ -z "$gpu_line" ]]; then
+  echo ":: NVIDIA not detected, skipping."
   exit 0
 fi
-echo "${nvidia_lines}" | head -n1
-gpu_line="$(echo "$nvidia_lines" | head -n1)"
+echo "$gpu_line"
 
-# Extract PCI IDs and (if present) codename token (TU/GA/AD/GH/GB)
+# Extract for later logic
 pci_id_hex="$(echo "$gpu_line" | sed -n 's/.*\[\([0-9a-fA-F]\{4\}:[0-9a-fA-F]\{4\}\)\].*/\1/p')"
 device_id="$(echo "$pci_id_hex" | cut -d: -f2 | tr '[:lower:]' '[:upper:]')"
 chip_token="$(echo "$gpu_line" | grep -Eo '\b(TU|GA|AD|GH|GB)[0-9]{2,3}\b' || true)"

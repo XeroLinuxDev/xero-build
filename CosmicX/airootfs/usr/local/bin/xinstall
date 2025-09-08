@@ -19,7 +19,7 @@ printf '%s\n' "$BODY" | yad --text-info --wrap \
   --image-on-top \
   --markup \
   --text="$HEADER" \
-  --width=600 --height=360 \
+  --width=600 --height=400 \
   --buttons-layout=center \
   --button="Main Site!:1" \
   --button="Mastodon!:2" \
