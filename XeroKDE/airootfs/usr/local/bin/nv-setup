@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+# nv-setup — Calamares (chroot) friendly, POST-INSTALL ONLY
+# Arch-only. Use Calamares packagechooser to install driver packages.
+# This script ONLY performs post-install configuration when an NVIDIA GPU is present:
+#   - Adds nvidia-drm.modeset=1 to GRUB (if /etc/default/grub exists) and regenerates grub.cfg
+#   - Ensures mkinitcpio MODULES contains: nvidia nvidia_modeset nvidia_uvm nvidia_drm
+#   - Enables NVIDIA PM services (suspend/hibernate/resume)
+#   - Rebuilds initramfs (mkinitcpio -P or dracut for all kernels)
+# Safe no-op on non-NVIDIA systems. No pacman/mirror/DB operations here.
+
+set -euo pipefail
+
+# ---- helpers ----
+require() { command -v "$1" >/dev/null 2>&1 || { echo "Missing: $1" >&2; exit 1; }; }
+require sed
+# lspci might be absent in the target; we will fall back to sysfs
+command -v lspci >/dev/null 2>&1 || true
+
+echo "==> Detecting NVIDIA GPU…"
+
+detect_with_lspci() {
+  command -v lspci >/dev/null 2>&1 || return 1
+  set +e
+  local lines rc
+  lines="$(lspci -nn | grep -Ei 'VGA compatible controller|3D controller' | grep -Ei 'NVIDIA|10de:')"
+  rc=$?
+  set -e
+  [[ $rc -eq 0 && -n "$lines" ]] || return 1
+  echo "$lines" | head -n1
+}
+
+detect_with_sysfs() {
+  for d in /sys/bus/pci/devices/*; do
+    [[ -e "$d/vendor" ]] || continue
+    if [[ "$(cat "$d/vendor" 2>/dev/null)" == "0x10de" ]]; then
+      local dev_id class
+      dev_id="$(cat "$d/device" 2>/dev/null)"   # e.g. 0x1f08
+      class="$(cat "$d/class" 2>/dev/null)"     # 0x03xxxx = display/3D
+      [[ "$class" == 0x03* ]] || continue
+      echo "NVIDIA GPU [10de:${dev_id#0x}]"
+      return 0
+    fi
+  done
+  return 1
+}
+
+gpu_line="$(detect_with_lspci || detect_with_sysfs || true)"
+if [[ -z "$gpu_line" ]]; then
+  echo ":: NVIDIA not detected, skipping post-install steps."
+  exit 0
+fi
+echo "$gpu_line"
+
+# Optional: extract codename for log (TU/GA/AD/GH/GB) — not required for logic
+chip_token="$(echo "$gpu_line" | grep -Eo '\b(TU|GA|AD|GH|GB)[0-9]{2,3}\b' || true)"
+[[ -n "$chip_token" ]] && echo "==> Detected family: $chip_token"
+
+# ---- GRUB tweak ----
+if [[ -f /etc/default/grub ]]; then
+  echo "==> Ensuring nvidia-drm.modeset=1 in /etc/default/grub…"
+  if ! grep -q "nvidia-drm.modeset=1" /etc/default/grub; then
+    if grep -q '^GRUB_CMDLINE_LINUX_DEFAULT=".*"' /etc/default/grub; then
+      sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT=/s/"$/ nvidia-drm.modeset=1"/' /etc/default/grub
+    elif grep -q "^GRUB_CMDLINE_LINUX_DEFAULT='.*'" /etc/default/grub; then
+      sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/s/'$/ nvidia-drm.modeset=1'/" /etc/default/grub
+    fi
+  fi
+  if command -v grub-mkconfig >/dev/null 2>&1; then
+    echo "==> Regenerating /boot/grub/grub.cfg…"
+    GRUB_DISABLE_OS_PROBER=true grub-mkconfig -o /boot/grub/grub.cfg || true
+  else
+    echo "!! grub-mkconfig not found; skipping GRUB regeneration."
+  fi
+else
+  echo "==> /etc/default/grub not present; skipping GRUB kernel param tweak."
+fi
+
+# ---- mkinitcpio MODULES ----
+if [[ -f /etc/mkinitcpio.conf ]]; then
+  echo "==> Ensuring NVIDIA modules in /etc/mkinitcpio.conf…"
+  REQUIRED_MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+  current_line="$(grep -E '^[[:space:]]*MODULES=' /etc/mkinitcpio.conf || true)"
+  if [[ "$current_line" =~ ^[[:space:]]*MODULES=\"\"$ ]]; then
+    sed -i 's/^[[:space:]]*MODULES=""/MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"/' /etc/mkinitcpio.conf
+  elif [[ "$current_line" =~ ^[[:space:]]*MODULES=\(\)$ ]]; then
+    sed -i 's/^[[:space:]]*MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
+  else
+    for mod in "${REQUIRED_MODULES[@]}"; do
+      grep -qE "^[[:space:]]*MODULES=.*\b${mod}\b" /etc/mkinitcpio.conf || \
+        sed -i "/^[[:space:]]*MODULES=\(/ s/)[[:space:]]*$/ ${mod})/" /etc/mkinitcpio.conf
+    done
+  fi
+else
+  echo "==> /etc/mkinitcpio.conf not found; skipping MODULES injection."
+fi
+
+# ---- Services (enable) ----
+echo "==> Enabling NVIDIA PM services…"
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service || true
+else
+  echo "!! systemctl not found; skipping service enable."
+fi
+
+# ---- Rebuild initramfs ----
+echo "==> Rebuilding initramfs…"
+if command -v mkinitcpio >/dev/null 2>&1; then
+  mkinitcpio -P
+elif command -v dracut >/dev/null 2>&1; then
+  for kv in /usr/lib/modules/*; do
+    [[ -d "$kv" ]] || continue
+    dracut --force --kver "$(basename "$kv")"
+  done
+else
+  echo "!! Neither mkinitcpio nor dracut found; cannot rebuild initramfs."
+fi
+
+echo "==> NVIDIA post-install steps complete."

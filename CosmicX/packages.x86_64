@@ -141,8 +141,8 @@ gsound
 preload
 libgdata
 xlapit-cli
+cosmic-cfg
 calamares-app
-calamares-cosmic-cfg
 cosmic-desktop-config
 evolution-data-server
 xdg-terminal-exec-git

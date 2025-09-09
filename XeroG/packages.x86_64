@@ -150,9 +150,9 @@ chaotic-mirrorlist
 gsound
 preload
 libgdata
+gnome-cfg
 xlapit-cli
 calamares-app
-calamares-g-cfg
 desktop-config-gnome
 evolution-data-server
 xdg-terminal-exec-git
