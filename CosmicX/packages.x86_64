@@ -168,10 +168,10 @@ mkinitcpio-nfs-utils
 
 ### Tools
 
-mpv
 hblock
 cryptsetup
 brightnessctl
+switcheroo-control
 
 ### Bash & Other
 
@@ -236,11 +236,6 @@ xf86-input-libinput
 xf86-input-synaptics
 xf86-input-elographics
 
-### Printers
-
-hplip
-printer-support
-
 ### G-Streamer
 
 gstreamer
@@ -249,6 +244,7 @@ gst-plugins-bad
 gst-plugins-base
 gst-plugins-ugly
 gst-plugins-good
+gst-plugins-espeak
 gst-plugin-pipewire
 
 ## Pipewire Audio
@@ -351,10 +347,6 @@ gtk-engine-murrine
 
 tela-circle-icon-theme-purple
 
-### Browser
-
-falkon
-
 ### Multimedia
 
 ffmpeg
@@ -384,8 +376,12 @@ gvfs-afc
 gvfs-mtp
 gvfs-nfs
 gvfs-smb
+gvfs-goa
+gvfs-wsdd
+gvfs-dnssd
 gvfs-google
 gvfs-gphoto2
+gvfs-onedrive
 
 ### Tumbler
 
@@ -457,7 +453,6 @@ cosmic-applets-git
 cosmic-applet-arch
 cosmic-ext-tweaks-git
 cosmic-ext-forecast-git
-cosmic-ext-applet-minimon-git
 cosmic-ext-applet-caffeine-git
 cosmic-ext-applet-privacy-indicator
 cosmic-ext-applet-external-monitor-brightness-git

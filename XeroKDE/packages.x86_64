@@ -164,10 +164,10 @@ mkinitcpio-nfs-utils
 
 ### Tools
 
-mpv
 hblock
 cryptsetup
 brightnessctl
+switcheroo-control
 power-profiles-daemon
 
 ### Bash & Other
@@ -240,13 +240,6 @@ xf86-input-synaptics
 libinput-gestures-qt
 xf86-input-elographics
 
-### Printers & Scanner support
-
-hplip
-print-manager
-printer-support
-scanner-support
-
 ### G-Streamer
 
 gstreamer
@@ -255,6 +248,7 @@ gst-plugins-bad
 gst-plugins-base
 gst-plugins-ugly
 gst-plugins-good
+gst-plugins-espeak
 gst-plugin-pipewire
 
 ## Pipewire Audio
@@ -306,12 +300,12 @@ cloud-init
 openconnect
 traceroute
 b43-fwcutter
-modemmanager
 networkmanager
 nm-cloud-setup
 wireless-regdb
 wireless_tools
 wpa_supplicant
+modemmanager-qt
 openpgp-card-tools
 systemd-resolvconf
 
@@ -375,10 +369,6 @@ gnome-themes-extra
 kde-wallpapers
 tela-circle-icon-theme-purple
 
-### Browser
-
-falkon
-
 ### Multimedia
 
 ffmpeg
@@ -409,7 +399,12 @@ gvfs-afc
 gvfs-mtp
 gvfs-nfs
 gvfs-smb
+gvfs-goa
+gvfs-wsdd
+gvfs-dnssd
+gvfs-google
 gvfs-gphoto2
+gvfs-onedrive
 
 ### Tumbler
 
@@ -456,7 +451,6 @@ gnustep-base
 
 ## Complements
 
-amarok
 pacseek
 parallel
 xsettingsd

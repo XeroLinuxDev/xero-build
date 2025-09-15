@@ -179,10 +179,10 @@ mkinitcpio-nfs-utils
 
 ### Tools
 
-mpv
 hblock
 cryptsetup
 brightnessctl
+switcheroo-control
 power-profiles-daemon
 
 ### Bash & Other
@@ -254,12 +254,6 @@ xf86-input-libinput
 xf86-input-synaptics
 xf86-input-elographics
 
-### Printers
-
-hplip
-printer-support
-scanner-support
-
 ### G-Streamer
 
 gstreamer
@@ -268,6 +262,7 @@ gst-plugins-bad
 gst-plugins-base
 gst-plugins-ugly
 gst-plugins-good
+gst-plugins-espeak
 gst-plugin-pipewire
 
 ## Pipewire Audio
@@ -423,8 +418,12 @@ gvfs-afc
 gvfs-mtp
 gvfs-nfs
 gvfs-smb
+gvfs-goa
+gvfs-wsdd
+gvfs-dnssd
 gvfs-google
 gvfs-gphoto2
+gvfs-onedrive
 
 ### Tumbler
 
