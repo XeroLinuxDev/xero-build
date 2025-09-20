@@ -26,8 +26,8 @@ dosfstools
 exfatprogs
 tpm2-tools
 fsarchiver
-bcachefs-dkms
-bcachefs-tools
+#bcachefs-dkms
+#bcachefs-tools
 squashfs-tools
 
 ### HDD Tools
