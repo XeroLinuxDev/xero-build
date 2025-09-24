@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#set -e
+###############################################################################
+# Author	:	DarkXero
+# Website	:	https://www.xerolinux.online
+###############################################################################
+#
+#   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
+#
+###############################################################################
+
+package=sddm
+if pacman -Qs $package > /dev/null ; then
+  ln -sf /usr/lib/systemd/system/sddm.service /etc/systemd/system/display-manager.service
+fi
+
+echo "#################################"
+echo "End displaymanager-check"
+echo "#################################"
+rm /usr/local/bin/dmcheck

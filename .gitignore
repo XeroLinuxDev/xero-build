@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+db.json
+build.sh
+push.sh
+gitinfo.sh
+gitclean.sh
+*.log
+node_modules/
+.deploy*/
+_multiconfig.yml
+archiso.readme
+f.md

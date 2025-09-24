@@ -1,0 +1,27 @@
+#!/bin/bash
+#set -e
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+###############################################################################
+# Author	:	DarkXero
+# Website	:	https://xerolinux.xyz
+###############################################################################
+
+if lsblk -f | grep -q "btrfs"; then
+    echo -e "${GREEN}BTRFS partitions found. Removing XFS-Progs.${NC}"
+    echo
+    sudo pacman -Rdd --noconfirm xfsprogs
+elif lsblk -f | grep -q "xfs"; then
+    echo -e "${RED}XFS partitions found. Removing BTRFS-Progs.${NC}"
+    echo
+    sudo pacman -Rdd --noconfirm btrfs-progs
+else
+    echo -e "${BLUE}No XFS or BTRFS partitions found. Removing both Progs Packages.${NC}"
+    sudo pacman -Rdd --noconfirm xfsprogs btrfs-progs
+fi
+
+rm /usr/local/bin/fsprogschk

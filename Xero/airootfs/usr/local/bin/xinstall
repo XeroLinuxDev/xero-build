@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Logo image path (adjust this to where your logo actually is)
+LOGO="/usr/share/logos/xero.png"
+RESIZED_LOGO="/tmp/resized_logo.png"
+
+# Resize the logo to a larger, centered size
+convert "$LOGO" -resize 128x128 "$RESIZED_LOGO"
+
+# Split header (with markup) from body (plain text in scroll area)
+HEADER=$'<b>WELCOME TO XEROLINUX KDE PLASMA</b>\n\n<b><span foreground="red">⚠️ Please make sure you are connected to the Internet before proceeding</span></b>\n\n<b><span foreground="green">nVidia : Please make sure to select the proper drivers for your GPU during installation !</span></b>'
+BODY=$'\nXeroLinux is an innovative Arch-based distribution that simplifies installation while maintaining Arch Linux’s core focus on user customization. It provides pre-configured, functional environments as a clean starting point, encouraging users to learn and shape their system’s configuration rather than relying on heavy modifications.\n\nSuitable for production, gaming, or development, XeroLinux includes a toolkit and system enhancements that offer a polished foundation with plenty of flexibility for personalization and growth.'
+
+# Show dialog: logo on top, bold header label, scrollable body, centered button
+printf '%s\n' "$BODY" | yad --text-info --wrap \
+  --center \
+  --title="XeroLinux Launcher" \
+  --image="$RESIZED_LOGO" \
+  --image-on-top \
+  --markup \
+  --text="$HEADER" \
+  --width=600 --height=400 \
+  --buttons-layout=center \
+  --button="Main Site!:1" \
+  --button="Mastodon!:2" \
+  --button="<b>Launch Installer</b>!:3" \
+  --button="Discord!:4" \
+  --button="YouTube!:5"
+
+  exit_code=$?
+
+  case $exit_code in
+    1) xdg-open "https://xerolinux.xyz" ;;
+    2) xdg-open "https://fosstodon.org/@XeroLinux" ;;
+    3) sudo calamares ;;
+    3) xdg-open "https://discord.xerolinux.xyz" ;;
+    4) xdg-open "https://youtube.com/@XeroLinux" ;;
+    0) break ;; # User closed the window
+    *) break ;;
+  esac
